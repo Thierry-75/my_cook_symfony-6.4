@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+
+  database:
+    image: mariadb
+    container_name: mariadb-cook
+    ports:
+      - 3308:3306
+    restart: always
+    volumes:
+      - db-data:/var/lib/mysql/data:rw
+    environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'yes'
+      MARIADB_DATABASE: 'blog_db'
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin-cook
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - 8081:80
+    environment:
+      PMA_HOST: database
+      MYSQL_ROOT_PASSWORD: 'root'
+
+  rabbitmq:
+    image: rabbitmq:3.7-management
+    container_name: rabbitmq-cook
+    ports: [ 5672, 15672 ]
+
+volumes:
+  db-data:
+
+
