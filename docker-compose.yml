@@ -6,13 +6,13 @@ services:
     image: mariadb
     container_name: mariadb-cook
     ports:
-      - 3308:3306
+      - 3309:3306
     restart: always
     volumes:
       - db-data:/var/lib/mysql/data:rw
     environment:
       MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'yes'
-      MARIADB_DATABASE: 'blog_db'
+      MARIADB_DATABASE: 'cook_db'
 
   phpmyadmin:
     image: phpmyadmin
