@@ -1,40 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ingredient{% endblock %}
+{% block title %}Ingredient
+{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <h1 class="d-flex justify-content-center">Mes ingrédients</h1>
-    <div class="count">
-        <span class="text-warning">Total : {{ ingredients.getTotalItemCount }}</span>
-    </div>
-    <table class="table table-hover">
-        <thead>
-            <tr class="table-warning">
-                <th scope="col">Numéro</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Prix</th>
-                <th scope="col">Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for ingredient in ingredients %}
-            {% if loop.index is divisible by(2) %}
-            <tr class="table-light">
-                {% else %}
-            <tr class="table-secondary"></tr>
-            {% endif %}
-            <th scope="row">{{ ingredient.id }}</th>
-            <td>{{ ingredient.name }}</td>
-            <td>{{ ingredient.price }}</td>
-            <td>{{ ingredient.createAt |date("d/m/Y") }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {# display navigation #}
-    <div class="navigation d-flex justify-content-center">
-            {{ knp_pagination_render(ingredients) }}
-    </div>
-</div>
+	<div class="container mt-4">
+		{% for message in app.flashes('success') %}
+			<div class="alert alert-dismissible alert-info fade show" role="alert">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		<h1 class="d-flex justify-content-center">Mes ingrédients</h1>
+		<div class="count">
+			<span class="text-warning">Total :
+				{{ ingredients.getTotalItemCount }}</span>
+		</div>
+		<table class="table table-hover">
+			<thead>
+				<tr class="table-warning">
+					<th scope="col">Numéro</th>
+					<th scope="col">Nom</th>
+					<th scope="col">Prix</th>
+					<th scope="col">Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for ingredient in ingredients %}
+					{% if loop.index is divisible by(2) %}
+						<tr class="table-light">
+						{% else %}
+							<tr class="table-secondary"></tr>
+						{% endif %}
+						<th scope="row">{{ ingredient.id }}</th>
+						<td>{{ ingredient.name }}</td>
+						<td>{{ ingredient.price }}</td>
+						<td>{{ ingredient.createAt |date("d-m-Y H:i:s") }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{# display navigation #}
+		<div class="navigation d-flex justify-content-center">
+			{{ knp_pagination_render(ingredients) }}
+		</div>
+	</div>
 {% endblock %}
