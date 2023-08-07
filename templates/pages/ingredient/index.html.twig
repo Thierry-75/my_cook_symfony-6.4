@@ -4,13 +4,18 @@
 {% endblock %}
 
 {% block body %}
-<style>
-	.count{
-		margin-top:60px;
-	}
-</style>
+	<style>
+		.count {
+			margin-top: 60px;
+		}
+	</style>
 	<div class="container mt-3">
-
+		{% for message in app.flashes('success') %}
+		<div class="alert alert-dismissible alert-primary" role="alert">
+			<strong>{{ message }}</strong>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		{% endfor %}
 
 		<h1 class="d-flex justify-content-center text-primary">Mes ingrédients</h1>
 		<a href="{{ path('ingredient_new')}}" class="btn btn-secondary mt-3 float-end">Créer un ingrédient</a>
@@ -34,7 +39,9 @@
 							<tr class="table-secondary"></tr>
 						{% endif %}
 						<th scope="row">{{ ingredient.id }}</th>
-						<td><a href="{{ path('ingredient_edit',{'id':ingredient.id})}}" data-toggle="tooltip" data-placement="top" title="Voir">{{ ingredient.name }}</a></td>
+						<td>
+							<a href="{{ path('ingredient_edit',{'id':ingredient.id})}}" data-toggle="tooltip" data-placement="top" title="Voir">{{ ingredient.name }}</a>
+						</td>
 						<td>{{ ingredient.price }}</td>
 						<td>{{ ingredient.createAt |date("d-m-Y H:i:s") }}</td>
 					</tr>
@@ -46,4 +53,5 @@
 			{{ knp_pagination_render(ingredients) }}
 		</div>
 	</div>
+
 {% endblock %}
