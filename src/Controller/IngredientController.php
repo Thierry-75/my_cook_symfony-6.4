@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class IngredientController extends AbstractController
 {
@@ -36,7 +37,14 @@ class IngredientController extends AbstractController
             'ingredients' => $ingredients
         ]);
     }
-
+    /**
+     * function add ingredient
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param ValidatorInterface $validator
+     * @return Response
+     */
     #[Route('/ingredient/nouveau', name:'ingredient_new', methods:['GET','POST'] )]
     public function new(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator) :Response
     {
@@ -53,12 +61,58 @@ class IngredientController extends AbstractController
             if($form->isSubmitted() && $form->isValid()){
                 $entityManager->persist($ingredient);
                 $entityManager->flush();
-                $this->addFlash('success','Votre ingrédient a été enregistré !');
+                $this->addFlash('success','l\'ingrédient : '. $ingredient->getName().' a été enregistré !');
                 return $this->redirectToRoute('app_ingredient');
                
             }
         }
         return $this->render('pages/ingredient/new.html.twig',
     ['form' => $form->createView()]);
+    }
+    
+    #[Route('/ingredient/modification/{id}', name:'ingredient_edit', methods:['GET', 'POST'])]
+    public function edit( Ingredient $ingredient, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator) :Response
+    {
+        $form = $this->createForm(IngredientType::class,$ingredient);
+        $form->handleRequest($request);
+        if($request->isMethod("POST")){
+            $errors = $validator->validate($ingredient);
+            if(count($errors) > 0){
+                return $this->render("pages/ingredient/edit.html.twig", [
+                    'form' => $form->createView(), 'errors' => $errors
+                ]);
+            }
+            if($form->isSubmitted() && $form->isValid()){
+                $entityManager->persist($ingredient);
+                $entityManager->flush();
+                $this->addFlash('success','l\'ingrédient : '.$ingredient->getName().' a été modifié !');
+                return $this->redirectToRoute('app_ingredient');
+               
+            }
+        }
+        return $this->render('pages/ingredient/edit.html.twig',['form' => $form->createView()]);
+    }
+    #[Route('/ingredient/suppression/{id}', name:'ingredient_delete', methods:['GET', 'POST'])]
+    public function delete(Ingredient $ingredient, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator) :Response
+    {
+        $form = $this->createForm(IngredientType::class,$ingredient);
+        $form->handleRequest($request);
+        if($request->isMethod("POST")){
+            $errors = $validator->validate($ingredient);
+            if(count($errors) > 0){
+                return $this->render("pages/ingredient/delete.html.twig", [
+                    'form' => $form->createView(), 'errors' => $errors
+                ]);
+            }
+            if($form->isSubmitted() && $form->isValid()){
+                $entityManager->persist($ingredient);
+                $entityManager->flush();
+                $this->addFlash('success','l\'ingrédient : '.$ingredient->getName().' a été supprimé !');
+                return $this->redirectToRoute('app_ingredient');
+               
+            }
+        }
+        return $this->render('pages/ingredient/delete.html.twig',['form' => $form->createView()]);
+        
     }
 }

@@ -4,17 +4,18 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container mt-4">
-		{% for message in app.flashes('success') %}
-			<div class="alert alert-dismissible alert-info fade show" role="alert">
-				{{ message }}
-			</div>
-		{% endfor %}
+<style>
+	.count{
+		margin-top:60px;
+	}
+</style>
+	<div class="container mt-3">
 
-		<h1 class="d-flex justify-content-center">Mes ingrédients</h1>
+
+		<h1 class="d-flex justify-content-center text-primary">Mes ingrédients</h1>
+		<a href="{{ path('ingredient_new')}}" class="btn btn-secondary mt-3 float-end">Créer un ingrédient</a>
 		<div class="count">
-			<span class="text-warning">Total :
-				{{ ingredients.getTotalItemCount }}</span>
+			<span class="text-warning">{{ ingredients.getTotalItemCount }}</span>
 		</div>
 		<table class="table table-hover">
 			<thead>
@@ -33,7 +34,7 @@
 							<tr class="table-secondary"></tr>
 						{% endif %}
 						<th scope="row">{{ ingredient.id }}</th>
-						<td>{{ ingredient.name }}</td>
+						<td><a href="{{ path('ingredient_edit',{'id':ingredient.id})}}" data-toggle="tooltip" data-placement="top" title="Voir">{{ ingredient.name }}</a></td>
 						<td>{{ ingredient.price }}</td>
 						<td>{{ ingredient.createAt |date("d-m-Y H:i:s") }}</td>
 					</tr>
@@ -41,7 +42,7 @@
 			</tbody>
 		</table>
 		{# display navigation #}
-		<div class="navigation d-flex justify-content-center">
+		<div class="navigation d-flex justify-content-center mt-4">
 			{{ knp_pagination_render(ingredients) }}
 		</div>
 	</div>

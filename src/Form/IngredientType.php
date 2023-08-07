@@ -25,7 +25,7 @@ class IngredientType extends AbstractType
                         'class' => 'form-label mt-4'
                     ],
             'constraints' => [ new Assert\Length(['min'=>2,'max'=>50, 'minMessage'=>'minimum 2','maxMessage'=>'max 50']),
-             new Assert\NotBlank(['message' => 'champ obligatoire'])]
+             new Assert\NotBlank(['message' => ''])]
             ])
             ->add('price', MoneyType::class, [
                 'attr' => [
@@ -34,7 +34,7 @@ class IngredientType extends AbstractType
                     'label_attr' => [
                         'class' => 'form-label mt-4'
                     ],
-            'constraints' => [  new Assert\NotBlank(['message' => 'champ obligatoire']),
+            'constraints' => [  new Assert\NotBlank(['message' => '']),
             new Assert\Positive(),
             new Assert\LessThan(200)
             ]
@@ -42,7 +42,7 @@ class IngredientType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-outline-warning mt-4 float-end'
-                ], 'label' => 'Créer'
+                ], 'label' => 'Valider'
             ])
             
         ;
