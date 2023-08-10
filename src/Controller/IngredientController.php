@@ -37,15 +37,16 @@ class IngredientController extends AbstractController
             'ingredients' => $ingredients
         ]);
     }
+
+    #[Route('/ingredient/nouveau', name:'ingredient_new', methods:['GET','POST'] )]
     /**
-     * function add ingredient
+     * function new ingredient
      *
      * @param Request $request
      * @param EntityManagerInterface $entityManager
      * @param ValidatorInterface $validator
      * @return Response
      */
-    #[Route('/ingredient/nouveau', name:'ingredient_new', methods:['GET','POST'] )]
     public function new(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator) :Response
     {
         $ingredient = new Ingredient();
@@ -71,6 +72,15 @@ class IngredientController extends AbstractController
     }
     
     #[Route('/ingredient/modification/{id}', name:'ingredient_edit', methods:['GET', 'POST'])]
+    /**
+     * function update ingrédient
+     *
+     * @param Ingredient $ingredient
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param ValidatorInterface $validator
+     * @return Response
+     */
     public function edit( Ingredient $ingredient, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator) :Response
     {
         $form = $this->createForm(IngredientType::class,$ingredient);
@@ -94,6 +104,15 @@ class IngredientController extends AbstractController
     }
 
     #[Route('/ingredient/suppression/{id}', name:'ingredient_delete', methods:['GET', 'POST'])]
+    /**
+     * delete ingredient
+     *
+     * @param Ingredient $ingredient
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param ValidatorInterface $validator
+     * @return Response
+     */
     public function delete(Ingredient $ingredient, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator) :Response
     {
         $form = $this->createForm(IngredientType::class,$ingredient);

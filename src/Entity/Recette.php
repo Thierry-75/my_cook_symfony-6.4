@@ -46,7 +46,7 @@ class Recette
 
     #[ORM\Column(nullable: true)]
     #[Assert\Positive()]
-    #[Assert\LessThan(100)]
+    #[Assert\LessThan(1001)]
     private ?float $price = null;
 
     #[ORM\Column]
