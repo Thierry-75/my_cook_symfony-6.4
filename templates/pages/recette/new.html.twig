@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+  {% block title %}Nouvelle recette{% endblock %}
+{% block body %}
+	<div class="container">
+		<h1 class="mt-4">Cr&eacute;ation d'une recette</h1>
+		{# templates/task/new.html.twig #}
+		{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

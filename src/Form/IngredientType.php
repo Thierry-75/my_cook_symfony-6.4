@@ -18,21 +18,21 @@ class IngredientType extends AbstractType
         $builder
             ->add('name', TextType::class,[
                 'attr' => [
-                    'class' => 'form-control', 'minlength' => '2', 'maxlength' => '50'
+                    'class' => 'form-control form-control-sm', 'minlength' => '2', 'maxlength' => '50'
                 ],
                     'label' => 'Nom', 
                     'label_attr' => [
-                        'class' => 'form-label mt-4'
+                        'class' => 'col-form-label col-form-label-sm mt-4'
                     ],
             'constraints' => [ new Assert\Length(['min'=>2,'max'=>50, 'minMessage'=>'minimum 2','maxMessage'=>'max 50']),
              new Assert\NotBlank(['message' => ''])]
             ])
             ->add('price', MoneyType::class, [
                 'attr' => [
-                    'class' => 'form-control' ],
+                    'class' => 'form-control form-control-sm' ],
                     'label' => 'Prix', 
                     'label_attr' => [
-                        'class' => 'form-label mt-4'
+                        'class' => 'col-form-label col-form-label-sm mt-4'
                     ],
             'constraints' => [  new Assert\NotBlank(['message' => '']),
             new Assert\Positive(),
@@ -41,7 +41,7 @@ class IngredientType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-outline-warning mt-4 float-end'
+                    'class' => 'btn btn-warning mt-4 float-end'
                 ], 'label' => 'Valider'
             ])
             

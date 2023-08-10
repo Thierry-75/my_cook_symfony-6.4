@@ -1,24 +1,28 @@
 <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
-      aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
-              <li class="nav-item">
-          <a class="nav-link active" href="{{ path('app_main')}}">Accueil
-            <span class="visually-hidden">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="{{ path('app_ingredient')}}">Ingrédients
-            <span class="visually-hidden">(current)</span>
-          </a>
-        </li>
-      </ul>
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">Navbar</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarColor01">
+			<ul class="navbar-nav me-auto">
+				<li class="nav-item">
+					<a class="nav-link active" href="{{ path('app_main')}}">Accueil
+						<span class="visually-hidden">(current)</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="{{ path('app_ingredient')}}">Mes ingrédients
+						<span class="visually-hidden">(current)</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="{{ path('app_recette')}}">Mes recettes
+						<span class="visually-hidden">(current)</span>
+					</a>
+				</li>
+			</ul>
 
-    </div>
-  </div>
+		</div>
+	</div>
 </nav>

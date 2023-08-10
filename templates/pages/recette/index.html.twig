@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recette
+{% endblock %}
+
+{% block body %}
+	<style>
+		.count {
+			margin-top: 60px;
+		}
+	</style>
+	<div class="container mt-3">
+
+
+		<h1 class="d-flex justify-content-center text-primary">Mes recettes</h1>
+		<a href="{{ path('recette_new')}}" class="btn btn-secondary mt-3 float-end">Créer une recette</a>
+		<div class="count">
+			<span class="text-warning">{{ recettes.getTotalItemCount }}</span>
+		</div>
+		<table class="table table-hover">
+			<thead>
+				<tr class="table-warning">
+					<th scope="col">Numéro</th>
+					<th scope="col">Nom</th>
+					<th scope="col">Prix</th>
+                    	<th scope="col">Difficulté</th>
+					<th scope="col">Date de création</th>
+                    <th scope="col">Edition</th>
+                    <th scope="col">Suppression</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for recette in recettes %}
+					{% if loop.index is divisible by(2) %}
+						<tr class="table-light">
+						{% else %}
+							<tr class="table-secondary"></tr>
+						{% endif %}
+						<th scope="row">{{ recette.id }}</th>
+						<td>
+							<a href="{{ path('ingredient_edit',{'id':recette.id})}}" data-toggle="tooltip" data-placement="top" title="Voir">{{ recette.name }}</a>
+						</td>
+						<td>{{ (recette.price  is same as(null)) ? 'non renseigné' : recette.price |format_currency('EUR') }}</td>
+                        <td>{{ recette.difficulty is same as(null) ? 'non renseignée' : recette.difficulty }}</td>
+						<td>{{ recette.createAt |date("d-m-Y H:i:s") }}</td>
+                      <!---  <td><a href="{# path('recette_edit', { id: recette.id }) #}" class="btn btn-info"></a></td>
+                         <td><a href="{# path('recette_delete', { id: recette.id }) #}" class="btn btn-warning"></a></td> -->
+                    
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		{# display navigation #}
+		<div class="navigation d-flex justify-content-center mt-4">
+			{{ knp_pagination_render(recettes) }}
+		</div>
+	</div>
+
+{% endblock %}

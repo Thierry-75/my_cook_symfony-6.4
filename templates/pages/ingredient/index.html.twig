@@ -42,7 +42,7 @@
 						<td>
 							<a href="{{ path('ingredient_edit',{'id':ingredient.id})}}" data-toggle="tooltip" data-placement="top" title="Voir">{{ ingredient.name }}</a>
 						</td>
-						<td>{{ ingredient.price }}</td>
+						<td>{{ ingredient.price }}&nbsp;€</td>
 						<td>{{ ingredient.createAt |date("d-m-Y H:i:s") }}</td>
 					</tr>
 				{% endfor %}
