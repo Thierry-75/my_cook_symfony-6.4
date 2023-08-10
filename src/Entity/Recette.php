@@ -61,6 +61,7 @@ class Recette
     private ?\DateTimeImmutable $updateAt = null;
 
     #[ORM\ManyToMany(targetEntity: Ingredient::class)]
+    #[Assert\NotBlank()]
     private Collection $ingredients;
 
     public function __construct()

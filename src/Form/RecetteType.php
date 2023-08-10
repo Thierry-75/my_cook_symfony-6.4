@@ -40,7 +40,7 @@ class RecetteType extends AbstractType
                 'required' => true,
             ])
             ->add('ingredients',EntityType::class, [
-                'class' => Ingredient::class,'label'=>'Les ingrédients','label_attr' => ['class' =>'col-form-label col-form-label-sm mt-1'],
+                'class' => Ingredient::class,'label'=>'Les ingrédients','required'=>true,'label_attr' => ['class' =>'col-form-label col-form-label-sm mt-1'],
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => false,
