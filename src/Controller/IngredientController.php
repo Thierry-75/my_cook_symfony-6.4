@@ -105,7 +105,7 @@ class IngredientController extends AbstractController
 
     #[Route('/ingredient/suppression/{id}', name:'ingredient_delete', methods:['GET', 'POST'])]
     /**
-     * delete ingredient
+     * function delete ingredient
      *
      * @param Ingredient $ingredient
      * @param Request $request
