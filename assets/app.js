@@ -15,9 +15,10 @@ const $ = require('jquery');
 // the bootstrap module doesn't export/return anything
 require('bootstrap');
 
+
 // or you can include specific pieces
  //require('bootstrap/js/src/tooltip.js');
- //require('bootstrap/js/dist/popover');
+require('bootstrap/js/dist/popover');
 
  //"~bootstrap/js/src/popover";
  //"~bootstrap/js/src/tooltip";
