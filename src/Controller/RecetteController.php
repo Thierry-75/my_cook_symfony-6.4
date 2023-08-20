@@ -60,7 +60,7 @@ class RecetteController extends AbstractController
             if($form->isSubmitted() && $form->isValid()){
                 $entityManager->persist($recette);
                 $entityManager->flush();
-                $this->addFlash('success','la recette : '. $recette->getName().' a été enregistrée !');
+                $this->addFlash('success','la recette : '. $recette->getName().' a été ajoutée !');
                 return $this->redirectToRoute('app_recette');
                
             }

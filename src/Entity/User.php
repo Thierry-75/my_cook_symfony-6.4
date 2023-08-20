@@ -19,8 +19,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
-    #[Assert\Email()]
+    #[ORM\Column(length: 255, unique: true)]
+    #[Assert\NotBlank()]
+    #[Assert\Email( message: 'cet email {{ value }} n\'est pas valide.',)]
     #[Assert\Length( max: 255)]
     private ?string $email = null;
 
@@ -28,15 +29,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotNull()]
     private array $roles = [];
 
-    
     private ?string $plainPassword = null;
+    private ?string $newPassword = null;
 
     /**
      * @var string The hashed password
      */
     #[ORM\Column]
     #[Assert\NotBlank()]
-    private ?string $password = null;
+    private ?string $password = 'password';
 
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank()]
@@ -177,6 +178,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of newPassword
+     */ 
+    public function getNewPassword()
+    {
+        return $this->newPassword;
+    }
+
+    /**
+     * Set the value of newPassword
+     *
+     * @return  self
+     */ 
+    public function setNewPassword($newPassword)
+    {
+        $this->newPassword = $newPassword;
 
         return $this;
     }

@@ -17,9 +17,7 @@ class AppFixtures extends Fixture
      * @var Generator
      */
     private Generator $faker;
-
     
-
     public function __construct()
     {
         $this->faker = Factory::create('fr_FR');

@@ -17,11 +17,9 @@ require('bootstrap');
 
 
 // or you can include specific pieces
- //require('bootstrap/js/src/tooltip.js');
+require('bootstrap/js/src/tooltip.js');
 require('bootstrap/js/dist/popover');
 
- //"~bootstrap/js/src/popover";
- //"~bootstrap/js/src/tooltip";
 
  
 
