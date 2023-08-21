@@ -7,11 +7,14 @@ use App\Form\IngredientType;
 use App\Repository\IngredientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Security\Http\Configuration\Security;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 
 class IngredientController extends AbstractController
@@ -25,12 +28,13 @@ class IngredientController extends AbstractController
      * @return Response
      */
     #[Route('/ingredient', name: 'app_ingredient', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function index(IngredientRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $ingredients = $paginator->paginate(
-            $repository->findBy(['user'=> $this->getUser()]),
+            $repository->findBy(['user' => $this->getUser()]),
             $request->query->getInt('page', 1),
-            10 
+            10
         );
 
         return $this->render('pages/ingredient/index.html.twig', [
@@ -38,7 +42,6 @@ class IngredientController extends AbstractController
         ]);
     }
 
-    #[Route('/ingredient/nouveau', name:'ingredient_new', methods:['GET','POST'] )]
     /**
      * function new ingredient
      *
@@ -47,33 +50,35 @@ class IngredientController extends AbstractController
      * @param ValidatorInterface $validator
      * @return Response
      */
-    public function new(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator) :Response
+    #[Route('/ingredient/nouveau', name: 'ingredient_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function new(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
     {
         $ingredient = new Ingredient();
-        $form = $this->createForm(IngredientType::class,$ingredient);
+        $form = $this->createForm(IngredientType::class, $ingredient);
         $form->handleRequest($request);
-        if($request->isMethod("POST")){
+        if ($request->isMethod("POST")) {
             $errors = $validator->validate($ingredient);
-            if(count($errors) > 0){
+            if (count($errors) > 0) {
                 return $this->render("pages/ingredient/new.html.twig", [
                     'form' => $form->createView(), 'errors' => $errors
                 ]);
             }
-            if($form->isSubmitted() && $form->isValid()){
+            if ($form->isSubmitted() && $form->isValid()) {
                 $ingredient->setUser($this->getUser());
                 $entityManager->persist($ingredient);
                 $entityManager->flush();
-                $this->addFlash('success','l\'ingrédient : '. $ingredient->getName().' a été enregistré !');
+                $this->addFlash('success', 'l\'ingrédient : ' . $ingredient->getName() . ' a été enregistré !');
                 return $this->redirectToRoute('app_ingredient');
-               
             }
         }
-        return $this->render('pages/ingredient/new.html.twig',
-    ['form' => $form->createView()]);
+        return $this->render(
+            'pages/ingredient/new.html.twig',
+            ['form' => $form->createView()]
+        );
     }
-    
-    #[Route('/ingredient/modification/{id}', name:'ingredient_edit', methods:['GET', 'POST'])]
-    /**
+
+      /**
      * function update ingrédient
      *
      * @param Ingredient $ingredient
@@ -82,30 +87,30 @@ class IngredientController extends AbstractController
      * @param ValidatorInterface $validator
      * @return Response
      */
-    public function edit( Ingredient $ingredient, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator) :Response
+    #[Route('/ingredient/modification/{id}', name: 'ingredient_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function edit(Ingredient $ingredient, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
     {
-        $form = $this->createForm(IngredientType::class,$ingredient);
+        $form = $this->createForm(IngredientType::class, $ingredient);
         $form->handleRequest($request);
-        if($request->isMethod("POST")){
+        if ($request->isMethod("POST")) {
             $errors = $validator->validate($ingredient);
-            if(count($errors) > 0){
+            if (count($errors) > 0) {
                 return $this->render("pages/ingredient/edit.html.twig", [
                     'form' => $form->createView(), 'errors' => $errors
                 ]);
             }
-            if($form->isSubmitted() && $form->isValid()){
+            if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager->persist($ingredient);
                 $entityManager->flush();
-                $this->addFlash('success','l\'ingrédient : '.$ingredient->getName().' a été modifié !');
+                $this->addFlash('success', 'l\'ingrédient : ' . $ingredient->getName() . ' a été modifié !');
                 return $this->redirectToRoute('app_ingredient');
-               
             }
         }
-        return $this->render('pages/ingredient/edit.html.twig',['form' => $form->createView()]);
+        return $this->render('pages/ingredient/edit.html.twig', ['form' => $form->createView()]);
     }
 
-    #[Route('/ingredient/suppression/{id}', name:'ingredient_delete', methods:['GET', 'POST'])]
-    /**
+        /**
      * function delete ingredient
      *
      * @param Ingredient $ingredient
@@ -114,26 +119,26 @@ class IngredientController extends AbstractController
      * @param ValidatorInterface $validator
      * @return Response
      */
-    public function delete(Ingredient $ingredient, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator) :Response
+    #[Route('/ingredient/suppression/{id}', name: 'ingredient_delete', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function delete(Ingredient $ingredient, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
     {
-        $form = $this->createForm(IngredientType::class,$ingredient);
+        $form = $this->createForm(IngredientType::class, $ingredient);
         $form->handleRequest($request);
-        if($request->isMethod("POST")){
+        if ($request->isMethod("POST")) {
             $errors = $validator->validate($ingredient);
-            if(count($errors) > 0){
+            if (count($errors) > 0) {
                 return $this->render("pages/ingredient/delete.html.twig", [
                     'form' => $form->createView(), 'errors' => $errors
                 ]);
             }
-            if($form->isSubmitted() && $form->isValid()){
+            if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager->persist($ingredient);
                 $entityManager->flush();
-                $this->addFlash('success','l\'ingrédient : '.$ingredient->getName().' a été supprimé !');
+                $this->addFlash('success', 'l\'ingrédient : ' . $ingredient->getName() . ' a été supprimé !');
                 return $this->redirectToRoute('app_ingredient');
-               
             }
         }
-        return $this->render('pages/ingredient/delete.html.twig',['form' => $form->createView()]);
-        
+        return $this->render('pages/ingredient/delete.html.twig', ['form' => $form->createView()]);
     }
 }

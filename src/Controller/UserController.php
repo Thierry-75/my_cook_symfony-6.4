@@ -3,12 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\UserPasswordType;
 use App\Form\UserType;
+use App\Form\UserPasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -25,6 +26,7 @@ class UserController extends AbstractController
      * @return Response
      */
     #[Route('/utilisateur/edition/{id}', name: 'edit_user', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
     public function index(User $user, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator, UserPasswordHasherInterface $hasher): Response
     {
         if (!$this->getUser()) {
@@ -61,6 +63,17 @@ class UserController extends AbstractController
     }
 
     #[Route('/utilisateur/edition-mot-de-passe/{id}', name: 'user_edit_password', methods: (['GET', 'POST']))]
+    #[IsGranted('ROLE_USER')]
+    /**
+     * function update password
+     *
+     * @param User $user
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @param ValidatorInterface $validator
+     * @param UserPasswordHasherInterface $hasher
+     * @return Response
+     */
     public function editPassword(User $user, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator, UserPasswordHasherInterface $hasher): Response
     {
         if (!$this->getUser()) {

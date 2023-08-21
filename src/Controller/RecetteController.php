@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 
 class RecetteController extends AbstractController
 {
@@ -24,6 +26,7 @@ class RecetteController extends AbstractController
      * @return Response
      */
     #[Route('/recette', name: 'app_recette', methods:['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function index(RecetteRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
         $recettes = $paginator->paginate(
@@ -45,6 +48,7 @@ class RecetteController extends AbstractController
      * @return Response
      */
     #[route('/recette/nouveau', 'recette_new', methods:['GET', 'POST' ])]
+    #[IsGranted('ROLE_USER')]
     public function new(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator) :Response
     {
         $recette = new Recette();
@@ -69,8 +73,7 @@ class RecetteController extends AbstractController
         return $this->render('/pages/recette/new.html.twig',['form' => $form->createView()]);
     }
 
-    #[Route('/recette/modification/{id}', name:'recette_edit', methods:['GET', 'POST'])]
-    /**
+        /**
      * function update recette
      *
      * @param Recette $recette
@@ -79,6 +82,8 @@ class RecetteController extends AbstractController
      * @param ValidatorInterface $validator
      * @return Response
      */
+    #[Route('/recette/modification/{id}', name:'recette_edit', methods:['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
     public function edit( Recette $recette, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator) :Response
     {
         $form = $this->createForm(RecetteType::class,$recette);
@@ -101,8 +106,7 @@ class RecetteController extends AbstractController
         return $this->render('pages/recette/edit.html.twig',['form' => $form->createView()]);
     }
 
-    #[Route('/recette/suppression/{id}', name:'recette_delete', methods:['GET', 'POST'])]
-    /**
+        /**
      * function delete recette
      *
      * @param Recette $recette
@@ -111,6 +115,8 @@ class RecetteController extends AbstractController
      * @param ValidatorInterface $validator
      * @return Response
      */
+    #[Route('/recette/suppression/{id}', name:'recette_delete', methods:['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
     public function delete(Recette $recette, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator) :Response
     {
         $form = $this->createForm(RecetteType::class,$recette);
