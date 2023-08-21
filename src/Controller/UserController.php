@@ -62,9 +62,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/utilisateur/edition-mot-de-passe/{id}', name: 'user_edit_password', methods: (['GET', 'POST']))]
-    #[IsGranted('ROLE_USER')]
-    /**
+        /**
      * function update password
      *
      * @param User $user
@@ -74,6 +72,8 @@ class UserController extends AbstractController
      * @param UserPasswordHasherInterface $hasher
      * @return Response
      */
+    #[Route('/utilisateur/edition-mot-de-passe/{id}', name: 'user_edit_password', methods: (['GET', 'POST']))]
+    #[IsGranted('ROLE_USER')]
     public function editPassword(User $user, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator, UserPasswordHasherInterface $hasher): Response
     {
         if (!$this->getUser()) {
