@@ -11,22 +11,52 @@
 						<span class="visually-hidden">(current)</span>
 					</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('app_ingredient')}}">Mes ingrédients
-						<span class="visually-hidden">(current)</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('app_recette')}}">Mes recettes
-						<span class="visually-hidden">(current)</span>
-					</a>
-				</li>
+				{% if app.user %}
+					<li class="nav-item">
+						<a class="nav-link active" href="{{ path('app_ingredient')}}">Mes ingrédients
+							<span class="visually-hidden">(current)</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="{{ path('app_recette')}}">Mes recettes
+							<span class="visually-hidden">(current)</span>
+						</a>
+					</li>
+				{% endif %}
 			</ul>
-			<span class="navbar-text">
-				<button class="btn btn-warning" type="button">
-					<a class="nav-link" href="{{ path('app_security') }}">Connexion</a>
-				</button>
-			</span>
+			<div class="d-flex">
+				<ul class="navbar-nav me-auto">
+					{% if app.user %}
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.fullName }}</a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="{{ path('edit_user', {id:app.user.id})}}">Modifier profil</a>
+								<a class="dropdown-item" href="{{ path('user_edit_password',{id:app.user.id})}}">Modifier mot de passe</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="{{ path('app_logout')}}">Déconnexion</a>
+							</div>
+						</li>
+						<li>&nbsp;&nbsp;</li>
+					{% else %}
+						<li>
+							<span class="navbar-text">
+								<button class="btn btn-success" type="button">
+									<a class="nav-link" href="{{ path('security_registration')}}" role="button">Inscription</a>
+								</button>
+							</span>
+						</li>
+						<li>&nbsp;</li>
+						<li>
+							<span class="navbar-text">
+								<button class="btn btn-warning" type="button">
+									<a class="nav-link" href="{{ path('app_security') }}">Connexion</a>
+								</button>
+							</span>
+						</li>
+					{% endif %}
+				</ul>
+
+			</div>
 		</div>
 	</div>
 </nav>

@@ -36,9 +36,9 @@
 			<tbody>
 				{% for ingredient in ingredients %}
 					{% if loop.index is divisible by(2) %}
-						<tr class="table-light">
+						<tr class="table-dark">
 						{% else %}
-							<tr class="table-secondary"></tr>
+							<tr class="table-info"></tr>
 						{% endif %}
 						<th scope="row">{{ ingredient.id }}</th>
 						<td>{{ ingredient.name }}</td>
