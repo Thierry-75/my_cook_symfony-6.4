@@ -86,6 +86,9 @@ class RecetteController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function edit( Recette $recette, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator) :Response
     {
+        $user =  $this->getUser();  // renvoie l'id du connecté 
+        $user_recette = $entityManager->getRepository(Recette::class)->find($recette); // renvoie l'id du proprietaire de l'article
+        if ($user->getId() === ($user_recette->getUser()->getId())) {
         $form = $this->createForm(RecetteType::class,$recette);
         $form->handleRequest($request);
         if($request->isMethod("POST")){
@@ -104,6 +107,9 @@ class RecetteController extends AbstractController
             }
         }
         return $this->render('pages/recette/edit.html.twig',['form' => $form->createView()]);
+    } else {
+        return $this->redirectToRoute('app_main');
+    }
     }
 
         /**
@@ -119,6 +125,9 @@ class RecetteController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function delete(Recette $recette, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator) :Response
     {
+        $user =  $this->getUser();  // renvoie l'id du connecté
+        $user_recette = $entityManager->getRepository(Recette::class)->find($recette); // renvoie l'id du proprietaire de l'article
+        if ($user->getId() === ($user_recette->getUser()->getId())) {
         $form = $this->createForm(RecetteType::class,$recette);
         $form->handleRequest($request);
         if($request->isMethod("POST")){
@@ -137,6 +146,9 @@ class RecetteController extends AbstractController
             }
         }
         return $this->render('pages/recette/delete.html.twig',['form' => $form->createView()]);
+    } else {
+        return $this->redirectToRoute('app_main');
+    }
         
     }
 }

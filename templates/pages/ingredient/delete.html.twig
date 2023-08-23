@@ -1,29 +1,31 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}Ingredient-suppresion
+	{{ app.user.id }}
+{% endblock %}
 {% block body %}
-	<div class="container">
-		<h1 class="mt-4">Suppression d'un ingr&eacute;dient</h1>
-		{# templates/task/new.html.twig #}
-		{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-		<div class="form-group">
-			{{ form_label(form.name) }}
-			{{ form_widget(form.name) }}
-			<div class="form-error">
-				{{ form_errors(form.name) }}
+		<div class="container">
+			<h1 class="mt-4">Suppression d'un ingr&eacute;dient</h1>
+			{# templates/task/new.html.twig #}
+			{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+			<div class="form-group">
+				{{ form_label(form.name) }}
+				{{ form_widget(form.name) }}
+				<div class="form-error">
+					{{ form_errors(form.name) }}
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			{{ form_label(form.price) }}
-			{{ form_widget(form.price) }}
-			<div class="form-error">
-				{{ form_errors(form.price) }}
+			<div class="form-group">
+				{{ form_label(form.price) }}
+				{{ form_widget(form.price) }}
+				<div class="form-error">
+					{{ form_errors(form.price) }}
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			{{ form_row(form.submit) }}
-		</div>
+			<div class="form-group">
+				{{ form_row(form.submit) }}
+			</div>
 
-		{{ form_end(form) }}
-		<a href="{{ path('app_ingredient')}}" class="btn btn-success mt-3 float-left">Annuler</a>
-	</div>
+			{{ form_end(form) }}
+			<a href="{{ path('app_ingredient')}}" class="btn btn-success mt-3 float-left">Annuler</a>
+		</div>
 {% endblock %}

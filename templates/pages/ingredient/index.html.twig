@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ingredient
+{% block title %}Ingredient {{ app.user.id }}
 {% endblock %}
 
 {% block body %}
@@ -17,7 +17,7 @@
 			</div>
 		{% endfor %}
 
-		<h1 class="d-flex justify-content-center text-primary">Mes ingrédients</h1>
+		<h1 class="d-flex justify-content-center text-primary">Mes ingrédients {{ user.id }}</h1>
 		<a href="{{ path('ingredient_new')}}" class="btn btn-outline-primary text-black mt-3 float-end">Créer un ingrédient</a>
 		<div class="count">
 			<span class="text-warning">{{ ingredients.getTotalItemCount }}</span>

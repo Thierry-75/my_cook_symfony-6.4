@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Ingredient;
 use App\Form\IngredientType;
 use App\Repository\IngredientRepository;
@@ -38,7 +39,7 @@ class IngredientController extends AbstractController
         );
 
         return $this->render('pages/ingredient/index.html.twig', [
-            'ingredients' => $ingredients
+            'ingredients' => $ingredients, 'user' => $this->getUser()
         ]);
     }
 
@@ -61,7 +62,7 @@ class IngredientController extends AbstractController
             $errors = $validator->validate($ingredient);
             if (count($errors) > 0) {
                 return $this->render("pages/ingredient/new.html.twig", [
-                    'form' => $form->createView(), 'errors' => $errors
+                    'form' => $form->createView(), 'errors' => $errors,
                 ]);
             }
             if ($form->isSubmitted() && $form->isValid()) {
@@ -78,7 +79,7 @@ class IngredientController extends AbstractController
         );
     }
 
-      /**
+    /**
      * function update ingrédient
      *
      * @param Ingredient $ingredient
@@ -91,6 +92,9 @@ class IngredientController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function edit(Ingredient $ingredient, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
     {
+        $user =  $this->getUser();  // renvoie l'id du connecté 
+        $user_ingredient = $entityManager->getRepository(Ingredient::class)->find($ingredient); // renvoie l'id du proprietaire de l'article
+        if ($user->getId() === ($user_ingredient->getUser()->getId())) {
         $form = $this->createForm(IngredientType::class, $ingredient);
         $form->handleRequest($request);
         if ($request->isMethod("POST")) {
@@ -107,10 +111,14 @@ class IngredientController extends AbstractController
                 return $this->redirectToRoute('app_ingredient');
             }
         }
-        return $this->render('pages/ingredient/edit.html.twig', ['form' => $form->createView()]);
+        return $this->render('pages/ingredient/edit.html.twig', ['form' => $form->createView(), 'user' => $this->getUser()]);
+    } else {
+        return $this->redirectToRoute('app_main');
+    }
+        
     }
 
-        /**
+    /**
      * function delete ingredient
      *
      * @param Ingredient $ingredient
@@ -123,22 +131,28 @@ class IngredientController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function delete(Ingredient $ingredient, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
     {
-        $form = $this->createForm(IngredientType::class, $ingredient);
-        $form->handleRequest($request);
-        if ($request->isMethod("POST")) {
-            $errors = $validator->validate($ingredient);
-            if (count($errors) > 0) {
-                return $this->render("pages/ingredient/delete.html.twig", [
-                    'form' => $form->createView(), 'errors' => $errors
-                ]);
+        $user =  $this->getUser();  // renvoie l'id du connecté 
+        $user_ingredient = $entityManager->getRepository(Ingredient::class)->find($ingredient); // renvoie l'id du proprietaire de l'article
+        if ($user->getId() === ($user_ingredient->getUser()->getId())) {
+            $form = $this->createForm(IngredientType::class, $ingredient);
+            $form->handleRequest($request);
+            if ($request->isMethod("POST")) {
+                $errors = $validator->validate($ingredient);
+                if (count($errors) > 0) {
+                    return $this->render("pages/ingredient/delete.html.twig", [
+                        'form' => $form->createView(), 'errors' => $errors
+                    ]);
+                }
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $entityManager->persist($ingredient);
+                    $entityManager->flush();
+                    $this->addFlash('success', 'l\'ingrédient : ' . $ingredient->getName() . ' a été supprimé !');
+                    return $this->redirectToRoute('app_ingredient');
+                }
             }
-            if ($form->isSubmitted() && $form->isValid()) {
-                $entityManager->persist($ingredient);
-                $entityManager->flush();
-                $this->addFlash('success', 'l\'ingrédient : ' . $ingredient->getName() . ' a été supprimé !');
-                return $this->redirectToRoute('app_ingredient');
-            }
+            return $this->render('pages/ingredient/delete.html.twig', ['form' => $form->createView(), 'user' => $user]);
+        } else {
+            return $this->redirectToRoute('app_main');
         }
-        return $this->render('pages/ingredient/delete.html.twig', ['form' => $form->createView()]);
     }
 }
