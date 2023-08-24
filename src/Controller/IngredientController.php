@@ -94,7 +94,7 @@ class IngredientController extends AbstractController
     {
         $user =  $this->getUser();  // renvoie l'id du connecté 
         $user_ingredient = $entityManager->getRepository(Ingredient::class)->find($ingredient); // renvoie l'id du proprietaire de l'article
-        if ($user->getId() === ($user_ingredient->getUser()->getId())) {
+        if ($user->id === ($user_ingredient->getUser()->getId())) {
         $form = $this->createForm(IngredientType::class, $ingredient);
         $form->handleRequest($request);
         if ($request->isMethod("POST")) {
@@ -133,7 +133,7 @@ class IngredientController extends AbstractController
     {
         $user =  $this->getUser();  // renvoie l'id du connecté 
         $user_ingredient = $entityManager->getRepository(Ingredient::class)->find($ingredient); // renvoie l'id du proprietaire de l'article
-        if ($user->getId() === ($user_ingredient->getUser()->getId())) {
+        if ($user->id === ($user_ingredient->getUser()->getId())) {
             $form = $this->createForm(IngredientType::class, $ingredient);
             $form->handleRequest($request);
             if ($request->isMethod("POST")) {

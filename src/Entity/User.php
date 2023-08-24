@@ -19,7 +19,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    public ?int $id = null;
 
     #[ORM\Column(length: 255, unique: true)]
     #[Assert\NotBlank()]
@@ -60,11 +60,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Recette::class, orphanRemoval: true)]
     private Collection $recettes;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Mark::class, orphanRemoval: true)]
+    private Collection $marks;
+
     public function __construct()
     {
         $this->createAt = new \DateTimeImmutable();
         $this->ingredients = new ArrayCollection();
         $this->recettes = new ArrayCollection();
+        $this->marks = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -266,6 +270,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($recette->getUser() === $this) {
                 $recette->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Mark>
+     */
+    public function getMarks(): Collection
+    {
+        return $this->marks;
+    }
+
+    public function addMark(Mark $mark): static
+    {
+        if (!$this->marks->contains($mark)) {
+            $this->marks->add($mark);
+            $mark->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMark(Mark $mark): static
+    {
+        if ($this->marks->removeElement($mark)) {
+            // set the owning side to null (unless already changed)
+            if ($mark->getUser() === $this) {
+                $mark->setUser(null);
             }
         }
 

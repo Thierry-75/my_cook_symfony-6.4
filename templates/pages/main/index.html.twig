@@ -5,21 +5,39 @@
 
 {% block body %}
 	<div class="container mt-4">
-			{% for message in app.flashes('success') %}
+		{% for message in app.flashes('success') %}
 			<div class="alert alert-dismissible alert-primary" role="alert">
 				<strong>{{ message }}</strong>
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
 		{% endfor %}
 		<div class="jumbotron">
-			<h1 class="display-4">Bienvenue {% if app.user.fullName is defined %}<span class="text-primary">{{ app.user.fullName }} </span>{% endif %}</h1>
+			<h1 class="display-4">Bienvenue
+				{% if app.user.fullName is defined %}
+					<span class="text-primary">{{ app.user.fullName }}
+					</span>
+				{% endif %}
+			</h1>
 			<p class="lead">Cook est une application qui va te permettre de créer des recettes à base d'ingrédients que tu
-				            auras choisi.
-				            Tu pourras partager tes recettes avec la communauté ou les garder en privé.</p>
+								            auras choisi.
+								            Tu pourras partager tes recettes avec la communauté ou les garder en privé.</p>
 			<hr class="my-4">
 			<p>Pour commencer, rendez-vous sur la page d'inscription pour pouvoir utiliser l'application.</p>
-
-		
+		</div>
+		<h2 class="mt-2 d-flex justify-content-center">Dernières recettes de la communauté </h2>
+		<div class="row my-sm-2 card-body">
+			{% for recette in recettes %}
+				<div class="col-sm-4 col-md-4 col-xl-4 d-flex">
+					<div class="card" style="width: 24rem;">
+						<img src="#" class="card-img-top" alt="#">
+						<div class="card-body">
+							<h5 class="card-title text-danger">{{recette.name}}</h5>
+							<p class="card-text"></p>
+							<a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#hondaModal">Voir</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
 		</div>
 	</div>
 

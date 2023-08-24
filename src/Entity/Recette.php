@@ -68,11 +68,20 @@ class Recette
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\Column]
+    private ?bool $isPublic = null;
+
+    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Mark::class, orphanRemoval: true)]
+    private Collection $marks;
+
+    private ?float $average=null;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
         $this->createAt = new \DateTimeImmutable();
         $this->updateAt = new \DateTimeImmutable();
+        $this->marks = new ArrayCollection();
     }
 
     #[ORM\PrePersist()]
@@ -227,5 +236,65 @@ class Recette
         $this->user = $user;
 
         return $this;
+    }
+
+    public function isIsPublic(): ?bool
+    {
+        return $this->isPublic;
+    }
+
+    public function setIsPublic(bool $isPublic): static
+    {
+        $this->isPublic = $isPublic;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Mark>
+     */
+    public function getMarks(): Collection
+    {
+        return $this->marks;
+    }
+
+    public function addMark(Mark $mark): static
+    {
+        if (!$this->marks->contains($mark)) {
+            $this->marks->add($mark);
+            $mark->setRecette($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMark(Mark $mark): static
+    {
+        if ($this->marks->removeElement($mark)) {
+            // set the owning side to null (unless already changed)
+            if ($mark->getRecette() === $this) {
+                $mark->setRecette(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of average
+     */ 
+    public function getAverage()
+    {
+        $marks = $this->marks;
+        if($marks->toArray() === []){
+            $this->average = null;
+            return $this->average;
+        }
+        $total = 0;
+        foreach($marks as $mark){
+            $total = $mark->getMark();
+        }
+        $this->average = $total / count($marks);
+        return $this->average;
     }
 }

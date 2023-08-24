@@ -1,0 +1,15 @@
+.card-body{
+    margin-top: 25px;
+}
+
+.card{
+    margin-bottom: 20px;
+    box-shadow: 0 0 65px #dfd9cd inset, 0 0 20px #c2baa8 inset, 0 0 5pt #524d42;
+}
+
+@media screen and (max-width: 720px) {
+
+    h3{
+        font-size: 20px;
+    }
+  }
