@@ -49,7 +49,7 @@ class RecetteController extends AbstractController
         $recettes = $paginator->paginate(
             $repository->findByRecettesPublics(),
             $request->query->getInt('page', 1),
-            5
+            3
         );
         return $this->render('pages/recette/index_public.html.twig', ['recettes' => $recettes]);
     }

@@ -40,7 +40,7 @@ class RecetteRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.isPublic = :val')
-            ->setParameter('val', 'true')
+            ->setParameter('val', '1')
             ->orderBy('r.id', 'DESC')
             ->setMaxResults(3)
             ->getQuery()
