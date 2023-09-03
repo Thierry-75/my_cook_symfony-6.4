@@ -28,11 +28,11 @@
 		<div class="row my-sm-2 card-body">
 			{% for recette in recettes %}
 				<div class="col-sm-4 col-md-4 col-xl-4 d-flex">
-					<div class="card" style="width: 24rem;">
-						<img src="#" class="card-img-top" alt="#">
+					<div class="card" style="width: 204rem;">
+						<img src="{{ vich_uploader_asset(recette, 'imageFile') }}" alt="{{ recette.name }}" class="card-img-top"/>
 						<div class="card-body">
 							<h5 class="card-title text-danger">{{recette.name}}</h5>
-							<p class="card-text"></p>
+							<p class="card-text">{{recette.description}}</p>
 							<a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#hondaModal">Voir</a>
 						</div>
 					</div>

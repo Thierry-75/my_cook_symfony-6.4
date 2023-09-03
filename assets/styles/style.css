@@ -7,6 +7,12 @@
     box-shadow: 0 0 65px #dfd9cd inset, 0 0 20px #c2baa8 inset, 0 0 5pt #524d42;
 }
 
+#imageFile{
+    height: auto;
+    width: 300px;
+    max-width:100%;
+}
+
 @media screen and (max-width: 720px) {
 
     h3{

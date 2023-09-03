@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 
 class RecetteType extends AbstractType
@@ -50,6 +51,7 @@ class RecetteType extends AbstractType
                 'label'=> ' Recette favorite ?',
                 'required' => true,
             ])
+            ->add('imageFile', VichImageType::class,['label'=>'Photo :','label_attr'=>['class'=>'form_label mt-4'],'attr'=>['class'=>'form-control-file']])
             ->add('ingredients',EntityType::class, [
                 'class' => Ingredient::class,'label'=>'Les ingrédients','required'=>true,'label_attr' => ['class' =>'col-form-label col-form-label-sm mt-1'],
                 'choice_label' => 'name',

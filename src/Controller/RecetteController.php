@@ -53,44 +53,7 @@ class RecetteController extends AbstractController
         );
         return $this->render('pages/recette/index_public.html.twig', ['recettes' => $recettes]);
     }
-    /**
-     * function show recette public
-     *
-     * @param Recette $recette
-     * @param Request $request
-     * @param EntityManagerInterface $entityManager
-     * @return Response
-     */
-    #[Route('/recette/{id}', name: 'recette_show', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_USER')]
-    public function show(Recette $recette, EntityManagerInterface $entityManager, Request $request, MarkRepository $markRepository): Response
-    {
 
-        $recette = $entityManager->getRepository(Recette::class)->find($recette);
-        if ($recette->isIsPublic()  || $recette->getUser() === $this->getUser()) {
-            $mark = new Mark();
-            $form = $this->createForm(MarkType::class, $mark);
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $mark->setUser($this->getUser())
-                    ->setRecette($recette);
-                    $user = $this->getUser();
-                $existingMark = $markRepository->findOneBy(['user' => $user->id, 'recette' => $recette]);
-                if (!$existingMark) {
-                    $entityManager->persist($mark);
-                    $entityManager->flush();
-                    $this->addFlash('success', 'Votre note a bien été prise en compte');
-                } else {
-                    $this->addFlash('warning', 'Vous avez déjà noté cette recette');
-                }
-                return $this->redirectToRoute('all_recettes');
-            }
-
-            return $this->render('pages/recette/show.html.twig', ['recette' => $recette, 'form' => $form->createView()]);
-        } else {
-            return $this->redirectToRoute('app_recette');
-        }
-    }
 
 
     /**
@@ -199,6 +162,45 @@ class RecetteController extends AbstractController
             return $this->render('pages/recette/delete.html.twig', ['form' => $form->createView()]);
         } else {
             return $this->redirectToRoute('app_main');
+        }
+    }
+
+    /**
+     * function show recette public
+     *
+     * @param Recette $recette
+     * @param Request $request
+     * @param EntityManagerInterface $entityManager
+     * @return Response
+     */
+    #[Route('/recette/{id}', name: 'recette_show', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function show(Recette $recette, EntityManagerInterface $entityManager, Request $request, MarkRepository $markRepository): Response
+    {
+
+        $recette = $entityManager->getRepository(Recette::class)->find($recette);
+        if ($recette->isIsPublic()  || $recette->getUser() === $this->getUser()) {
+            $mark = new Mark();
+            $form = $this->createForm(MarkType::class, $mark);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $mark->setUser($this->getUser())
+                    ->setRecette($recette);
+                $user = $this->getUser();
+                $existingMark = $markRepository->findOneBy(['user' => $user->id, 'recette' => $recette]);
+                if (!$existingMark) {
+                    $entityManager->persist($mark);
+                    $entityManager->flush();
+                    $this->addFlash('success', 'Votre note a bien été prise en compte');
+                } else {
+                    $this->addFlash('warning', 'Vous avez déjà noté cette recette');
+                }
+                return $this->redirectToRoute('all_recettes');
+            }
+
+            return $this->render('pages/recette/show.html.twig', ['recette' => $recette, 'form' => $form->createView()]);
+        } else {
+            return $this->redirectToRoute('app_recette');
         }
     }
 }

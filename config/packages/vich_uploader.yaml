@@ -1,0 +1,22 @@
+vich_uploader:
+    db_driver: orm
+    metadata:
+        type: attribute
+
+    mappings:
+        photos:
+            uri_prefix: /images/photos
+            upload_destination: "%kernel.project_dir%/public/images/photos"
+            namer:
+                service: Vich\UploaderBundle\Naming\HashNamer
+                options: { algorithm: "sha256", length: 30 }
+
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/products
+    #        upload_destination: '%kernel.project_dir%/public/images/products'
+    #        namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
