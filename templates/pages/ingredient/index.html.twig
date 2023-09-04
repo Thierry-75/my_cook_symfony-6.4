@@ -19,10 +19,11 @@
 
 		<h1 class="d-flex justify-content-center text-primary">Mes ingrédients -  {{ user.pseudo }}</h1>
 		<a href="{{ path('ingredient_new')}}" class="btn btn-warning text-black mt-3 float-end">Créer un ingrédient</a>
+		{% if ingredients is not empty%}
 		<div class="count">
-			<span class="text-black">Nombre d'ingrédients : {{ ingredients.getTotalItemCount }}</span>
+			<span class="badge bg-light text-black">Nombre d'ingrédients : {{ ingredients.getTotalItemCount }}</span>
 		</div>
-		<table class="table table-hover">
+		<table class="table table-hover mt-2">
 			<thead>
 				<tr class="table-active">
 					<th scope="col" class="text-primary">Numéro</th>
@@ -60,6 +61,7 @@
 		<div class="navigation d-flex justify-content-center mt-4">
 			{{ knp_pagination_render(ingredients) }}
 		</div>
+		{% endif %}
 	</div>
 
 {% endblock %}

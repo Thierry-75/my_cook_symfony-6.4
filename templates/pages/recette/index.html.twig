@@ -19,10 +19,11 @@
 
 		<h1 class="d-flex justify-content-center text-primary">Mes recettes -  {{ user.pseudo }}</h1>
 		<a href="{{ path('recette_new')}}" class="btn btn-warning text-black mt-3 float-end">Créer une recette</a>
+		{% if recettes is not empty %}
 		<div class="count">
-			<span class="text-black">Nombre de recettes : {{ recettes.getTotalItemCount }}</span>
+			<span class=" badge bg-light text-black">Nombre de recettes : {{ recettes.getTotalItemCount }}</span>
 		</div>
-		<table class="table table-hover">
+		<table class="table table-hover mt-2">
 			<thead>
 				<tr class="table-active">
 					<th scope="col" class="text-primary">Numéro</th>
@@ -62,6 +63,7 @@
 		<div class="navigation d-flex justify-content-center mt-4">
 			{{ knp_pagination_render(recettes) }}
 		</div>
+		{% endif %}
 	</div>
 
 {% endblock %}

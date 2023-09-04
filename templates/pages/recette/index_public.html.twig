@@ -24,8 +24,9 @@
 		{% endfor %}
 		<h1 class="d-flex justify-content-center text-primary">Recettes publiques</h1>
 		<a href="{{ path('app_recette')}}" class="btn btn-outline-warning text-black mt-3 float-end">Mes recettes</a>
+		{% if recettes is not empty %}
 		<div class="count">
-			<span class="text-warning">{{ recettes.getTotalItemCount }}</span>
+			<span class="badge bg-light text-black">Nombre de recettes publiques : {{ recettes.getTotalItemCount }}</span>
 		</div>
 		<div class="row my-sm-2 card-body">
 			{% for recette in recettes %}
@@ -45,5 +46,6 @@
 		<div class="navigation d-flex justify-content-center mt-4">
 			{{ knp_pagination_render(recettes) }}
 		</div>
+		{% endif %}
 	</div>
 {% endblock %}

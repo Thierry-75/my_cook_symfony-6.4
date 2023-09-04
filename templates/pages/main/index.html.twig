@@ -24,6 +24,7 @@
 			<hr class="my-4">
 			<p>Pour commencer, rendez-vous sur la page d'inscription pour pouvoir utiliser l'application.</p>
 		</div>
+		{% if recettes is not empty %}
 		<h2 class="mt-2 d-flex justify-content-center">Dernières recettes de la communauté </h2>
 		<div class="row my-sm-2 card-body">
 			{% for recette in recettes %}
@@ -39,6 +40,7 @@
 				</div>
 			{% endfor %}
 		</div>
+		{% endif %}
 	</div>
 
 
