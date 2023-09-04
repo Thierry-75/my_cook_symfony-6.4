@@ -39,7 +39,7 @@ class RecetteController extends AbstractController
         );
 
         return $this->render('pages/recette/index.html.twig', [
-            'recettes' => $recettes
+            'recettes' => $recettes, 'user' => $this->getUser()
         ]);
     }
     #[Route('/recettes/publics', name: 'all_recettes', methods: ['GET'])]

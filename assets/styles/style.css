@@ -1,9 +1,26 @@
+body{
+    background-color: #bec0c2 !important;
+}
+
 .card-body{
     margin-top: 25px;
 }
 
 .card{
     margin-bottom: 20px;
+    box-shadow: 0 0 65px #dfd9cd inset, 0 0 20px #c2baa8 inset, 0 0 5pt #524d42;
+}
+#nav-header{
+    box-shadow: 0 0 65px #dfd9cd inset, 0 0 20px #dfd9cd inset, 0 0 5pt #dfd9cd;
+}
+
+.btn{
+    box-shadow: 0 0 40px #d89f2c inset, 0 0 20px #a17819 inset, 0 0 5pt #524d42;
+}
+#imageFile{
+    box-shadow: 0 0 65px #dfd9cd inset, 0 0 20px #c2baa8 inset, 0 0 5pt #524d42;
+}
+#note-recette{
     box-shadow: 0 0 65px #dfd9cd inset, 0 0 20px #c2baa8 inset, 0 0 5pt #524d42;
 }
 

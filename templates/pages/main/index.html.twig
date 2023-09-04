@@ -32,8 +32,8 @@
 						<img src="{{ vich_uploader_asset(recette, 'imageFile') }}" alt="{{ recette.name }}" class="card-img-top"/>
 						<div class="card-body">
 							<h5 class="card-title text-danger">{{recette.name}}</h5>
-							<p class="card-text">{{recette.description}}</p>
-							<a href="#" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#hondaModal">Voir</a>
+							<p class="card-text">{{ recette.description | slice(0,100) | raw }}...</p>
+							<a href="{{ path('recette_show',{'id':recette.id})}}" class="btn btn-warning text-black" >Voir la recette</a>
 						</div>
 					</div>
 				</div>

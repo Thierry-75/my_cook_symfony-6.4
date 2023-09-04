@@ -1,29 +1,29 @@
-<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark" id="nav-header">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="#">Cook.fr</a>
+		<a class="navbar-brand text-black" href="{{ path('app_main')}}">Cook.fr</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="navbarColor01">
 			<ul class="navbar-nav me-auto">
 				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('app_main')}}">Accueil
+					<a class="nav-link active text-black" href="{{ path('app_main')}}">Accueil
 						<span class="visually-hidden">(current)</span>
 					</a>
 				</li>
 				{% if app.user %}
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('app_ingredient')}}">Mes ingrédients
+						<a class="nav-link active text-black" href="{{ path('app_ingredient')}}">Mes ingrédients
 							<span class="visually-hidden">(current)</span>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('app_recette')}}">Mes recettes
+						<a class="nav-link active text-black" href="{{ path('app_recette')}}">Mes recettes
 							<span class="visually-hidden">(current)</span>
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('all_recettes')}}">Recettes communautaires
+						<a class="nav-link active text-black" href="{{ path('all_recettes')}}">Recettes communautaires
 							<span class="visually-hidden">(current)</span>
 						</a>
 					</li>
@@ -33,7 +33,7 @@
 				<ul class="navbar-nav me-auto">
 					{% if app.user %}
 						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.fullName }}</a>
+							<a class="nav-link dropdown-toggle text-black" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.fullName }}</a>
 							<div class="dropdown-menu">
 								<a class="dropdown-item" href="{{ path('edit_user', {id:app.user.id})}}">Modifier profil</a>
 								<a class="dropdown-item" href="{{ path('user_edit_password',{id:app.user.id})}}">Modifier mot de passe</a>
@@ -45,16 +45,16 @@
 					{% else %}
 						<li>
 							<span class="navbar-text">
-								<button class="btn btn-success" type="button">
-									<a class="nav-link" href="{{ path('security_registration')}}" role="button">Inscription</a>
+								<button class="btn btn-warning " type="button">
+									<a class="nav-link text-black" href="{{ path('security_registration')}}" role="button">Inscription</a>
 								</button>
 							</span>
 						</li>
 						<li>&nbsp;</li>
 						<li>
 							<span class="navbar-text">
-								<button class="btn btn-warning" type="button">
-									<a class="nav-link" href="{{ path('app_security') }}">Connexion</a>
+								<button class="btn btn-warning " type="button">
+									<a class="nav-link text-black" href="{{ path('app_security') }}">Connexion</a>
 								</button>
 							</span>
 						</li>

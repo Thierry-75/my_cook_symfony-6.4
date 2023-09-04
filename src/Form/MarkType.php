@@ -22,9 +22,9 @@ class MarkType extends AbstractType
                     '4'=>4,
                     '5'=>5,
                 ],
-                'attr'=>['class'=>'form-select'],'label'=>'Noter la recette','label_attr'=>['class'=>'form-label text-primary mt-4']
+                'attr'=>['class'=>'form-select'],'label'=>'Noter la recette .','label_attr'=>['class'=>'form-label text-black mt-4','id'=>'note-recette']
             ])
-            ->add('submit',SubmitType::class,['attr'=>['class'=>"btn btn-primary mt-3 float-end"]])
+            ->add('submit',SubmitType::class,['attr'=>['class'=>"btn btn-warning mt-3 float-end"], 'label' => 'Valider'])
         ;
     }
 
