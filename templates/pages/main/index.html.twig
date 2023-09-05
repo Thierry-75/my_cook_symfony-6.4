@@ -12,12 +12,12 @@
 			</div>
 		{% endfor %}
 		<div class="jumbotron">
-			<h1 class="display-4">Bienvenue
+			<h3 class="display-6">Bienvenue
 				{% if app.user.fullName is defined %}
 					<span class="text-primary">{{ app.user.fullName }}
 					</span>
 				{% endif %}
-			</h1>
+			</h3>
 			<p class="lead">Cook est une application qui va te permettre de créer des recettes à base d'ingrédients que tu
 								            auras choisi.
 								            Tu pourras partager tes recettes avec la communauté ou les garder en privé.</p>
@@ -25,12 +25,12 @@
 			<p>Pour commencer, rendez-vous sur la page d'inscription pour pouvoir utiliser l'application.</p>
 		</div>
 		{% if recettes is not empty %}
-		<h2 class="mt-2 d-flex justify-content-center">Dernières recettes de la communauté </h2>
+		<h2 class="mt-1 d-flex justify-content-center">Dernières recettes de la communauté </h2>
 		<div class="row my-sm-2 card-body">
 			{% for recette in recettes %}
 				<div class="col-sm-4 col-md-4 col-xl-4 d-flex">
-					<div class="card" style="width: 204rem;">
-						<img src="{{ vich_uploader_asset(recette, 'imageFile') }}" alt="{{ recette.name }}" class="card-img-top"/>
+					<div class="card" style="width: 22rem;">
+						<img src="{{ vich_uploader_asset(recette, 'imageFile' ) | imagine_filter('card') }}" alt="{{ recette.name }}" class="card-img-top"/>
 						<div class="card-body">
 							<h5 class="card-title text-danger">{{recette.name}}</h5>
 							<p class="card-text">{{ recette.description | slice(0,100) | raw }}...</p>

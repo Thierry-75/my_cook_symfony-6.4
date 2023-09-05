@@ -6,7 +6,7 @@ html {
   }
   body {
     margin-bottom: 60px; /* Margin bottom by footer height */
-    background-color: #cdd1d4 !important;
+    background-color: #e3e7ea !important;
   }
   .footer {
     position: absolute;
@@ -20,11 +20,11 @@ html {
 
 
 .card-body{
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
 .card{
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     box-shadow: 0 0 65px #dfd9cd inset, 0 0 20px #c2baa8 inset, 0 0 5pt #524d42;
 }
 #nav-header{
@@ -41,11 +41,7 @@ html {
     box-shadow: 0 0 65px #dfd9cd inset, 0 0 20px #c2baa8 inset, 0 0 5pt #524d42;
 }
 
-#imageFile{
-    height: auto;
-    width: 300px;
-    max-width:100%;
-}
+
 
 
 
