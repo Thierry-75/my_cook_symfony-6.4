@@ -121,6 +121,7 @@ class RecetteController extends AbstractController
                     return $this->redirectToRoute('app_recette');
                 }
             }
+           
             return $this->render('pages/recette/edit.html.twig', ['form' => $form->createView()]);
         } else {
             return $this->redirectToRoute('app_main');

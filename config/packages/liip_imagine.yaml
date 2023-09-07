@@ -9,3 +9,9 @@ liip_imagine:
                 fixed:
                     width: 640
                     height: 480
+        recette:
+            quality: 85
+            filters:
+                fixed:
+                    width: 400
+                    height: 300

@@ -81,6 +81,9 @@ class Recette
 
     // NOTE: This is not a mapped field of entity metadata, just a simple property.
     #[Vich\UploadableField(mapping: 'photos', fileNameProperty: 'imageName', size: 'imageSize')]
+    #[Assert\Image(maxSize : "4096k",mimeTypes:["image/jpeg","image/jpg"],minWidth : "640",minHeight : "480",minWidthMessage: "min 640",minHeightMessage: "min 480",
+    mimeTypesMessage: "format jpg, jpeg",
+    maxSizeMessage: "ne doit pas dépasser 4096 ko")]
     private ?File $imageFile = null;
 
   
