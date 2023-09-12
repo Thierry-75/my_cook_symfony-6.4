@@ -1,11 +1,11 @@
 <div class="position-relative top-50 start-50 translate-middle">
-	<h1 class="mt-2">{{ recette.name | capitalize }}</h1>
+	<h1 class="mt-1">{{ recette.name | capitalize }}</h1>
 		{% if recette.photo is not empty %}
 	<div class="mt-2">
 		<img class="img-fluid" id="imageFile" src="{{ vich_uploader_asset(recette.photo) | imagine_filter('recette') }}" alt="{{ recette.name }}"/>
 	</div>
 		{% endif %}
-	<p class="mt-2 text-black">La note de cette recette est de :
+	<p class="mt-1 text-black">La note de cette recette est de :
 		<span class=" badge bg-danger">{{ recette.average | number_format('2', '.', '') }}&nbsp;/ 5</span>
 	</p>
 	<span class=" badge bg-dark">Créée le :{{ recette.createAt | date('d-m-Y') }}</span>
@@ -15,32 +15,32 @@
 		</p>
 	{% endif %}
 	{% if recette.nbPeople is defined %}
-		<p class="mt-2">Nombre de personnes :
+		<p class="mt-1">Nombre de personnes :
 			{{ recette.nbPeople }}
 		</p>
 	{% endif %}
 	{% if recette.difficulty is defined %}
-		<p class="mt-2">Difficulté :
+		<p class="mt-1">Difficulté :
 			{{ recette.difficulty }}
 			&nbsp;/ 5
 		</p>
 	{% endif %}
 	{% if recette.price is defined %}
-		<p class="mt-2">Prix en € :
+		<p class="mt-1">Prix en € :
 			{{ recette.price }}
 		</p>
 	{% endif %}
 	{% if recette.description is defined %}
-		<div class="mt-2">{{ recette.description | raw }}</div>
+		<div class="mt-1">{{ recette.description | raw }}</div>
 	{% endif %}
 	{% if recette.ingredients is defined %}
-		<div class="mt-2">
+		<div class="mt-1">
 			{% for ingredient in recette.ingredients %}
 				<span class=" badge bg-success text-black">{{ ingredient.name }}</span>
 			{% endfor %}
 		</div>
 	{% endif %}
-	<div class="mark mt-3 col-md-4 " id="mark">
+	<div class="mark mt-1 col-md-4 " id="mark">
 		{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 		<div class="form-group ">
 			{{ form_label(form.mark) }}

@@ -33,7 +33,7 @@ class IngredientController extends AbstractController
         $ingredients = $paginator->paginate(
             $repository->findBy(['user' => $this->getUser()]),
             $request->query->getInt('page', 1),
-            10
+            8
         );
 
         return $this->render('pages/ingredient/index.html.twig', [
@@ -142,7 +142,7 @@ class IngredientController extends AbstractController
                     ]);
                 }
                 if ($form->isSubmitted() && $form->isValid()) {
-                    $entityManager->persist($ingredient);
+                    $entityManager->remove($ingredient);
                     $entityManager->flush();
                     $this->addFlash('success', 'l\'ingrédient : ' . $ingredient->getName() . ' a été supprimé !');
                     return $this->redirectToRoute('app_ingredient');

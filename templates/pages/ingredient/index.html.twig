@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ingredient {{ app.user.pseudo }}
+{% block title %}Ingredient
+	{{ app.user.pseudo }}
 {% endblock %}
 
 {% block body %}
@@ -17,51 +18,55 @@
 			</div>
 		{% endfor %}
 
-		<h1 class="d-flex justify-content-center text-primary">Mes ingrédients -  {{ app.user.fullName }}</h1>
+		<h1 class="d-flex justify-content-center text-primary">Mes ingrédients -
+			{{ app.user.fullName }}</h1>
 		<a href="{{ path('ingredient_new')}}" class="btn btn-warning text-black mt-3 float-end">Créer un ingrédient</a>
 		{% if ingredients is not empty%}
-		<div class="count">
-			<span class="badge bg-light text-black">Nombre d'ingrédients : {{ ingredients.getTotalItemCount }}</span>
-		</div>
-		<table class="table table-hover mt-2">
-			<thead>
-				<tr class="table-active">
-					<th scope="col" class="text-primary">Numéro</th>
-					<th scope="col" class="text-primary">Nom</th>
-					<th scope="col" class="text-primary">Prix</th>
-					<th scope="col" class="text-primary">Date</th>
-					<th scope="col" class="text-primary"></th>
-					<th scope="col" class="text-primary"></th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for ingredient in ingredients %}
-					{% if loop.index is divisible by(2) %}
-						<tr class="table-secondary">
-						{% else %}
-							<tr class="table-info"></tr>
-						{% endif %}
-						<th scope="row">{{ ingredient.id }}</th>
-						<td>{{ ingredient.name }}</td>
-						<td>{{ ingredient.price }}&nbsp;€</td>
-						<td>{{ ingredient.createAt |date("d-m-Y H:i:s") }}</td>
-						<td>
-							<a href="{{ path('ingredient_edit',{'id':ingredient.id})}}" class="btn btn-sm btn-outline-warning text-black float-center text-small"
-							data-placement="top" data-toggle="tooltip" title="Modifier l'ingrédient : {{ ingredient.name }} " data-trigger="hover"><i class="bi bi-wrench-adjustable"></i></a>
-						</td>
-						<td>
-							<a href="{{ path('ingredient_delete',{'id':ingredient.id})}}" class="btn btn-sm btn-outline-warning text-black float-center text-small"
-							data-placement="top" data-toggle="tooltip" title="Supprimer l'ingrédient : {{ ingredient.name }} " data-trigger="hover"><i class="bi bi-trash"></i></a>
-						</td>
+			<div class="count">
+				<span class="badge bg-light text-black">Nombre d'ingrédients :
+					{{ ingredients.getTotalItemCount }}</span>
+			</div>
+			<table class="table table-hover mt-2">
+				<thead>
+					<tr class="table-active">
+						<th scope="col" class="text-primary">Numéro</th>
+						<th scope="col" class="text-primary">Nom</th>
+						<th scope="col" class="text-primary">Prix</th>
+						<th scope="col" class="text-primary">Date</th>
+						<th scope="col" class="text-primary"></th>
+						<th scope="col" class="text-primary"></th>
 					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-		{# display navigation #}
-		<div class="navigation d-flex justify-content-center mt-4">
-			{{ knp_pagination_render(ingredients) }}
-		</div>
+				</thead>
+				<tbody>
+					{% for ingredient in ingredients %}
+						{% if loop.index is divisible by(2) %}
+							<tr class="table-secondary">
+							{% else %}
+								<tr class="table-info"></tr>
+							{% endif %}
+							<th scope="row">{{ ingredient.id }}</th>
+							<td>{{ ingredient.name }}</td>
+							<td>{{ ingredient.price }}&nbsp;€</td>
+							<td>{{ ingredient.createAt |date("d-m-Y H:i:s") }}</td>
+							<td>
+								<a href="{{ path('ingredient_edit',{'id':ingredient.id})}}" class="btn btn-sm btn-outline-warning text-black float-center text-small" data-placement="top" data-toggle="tooltip" title="Modifier l'ingrédient : {{ ingredient.name }} " data-trigger="hover">
+									<i class="bi bi-folder-symlink"></i>
+								</a>
+							</td>
+							<td>
+								<a href="{{ path('ingredient_delete',{'id':ingredient.id})}}" class="btn btn-sm btn-outline-danger text-black float-center text-small" data-placement="top" data-toggle="tooltip" title="Supprimer l'ingrédient : {{ ingredient.name }} " data-trigger="hover">
+									<i class="bi bi-trash"></i>
+								</a>
+
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{# display navigation #}
+			<div class="navigation d-flex justify-content-center mt-4">
+				{{ knp_pagination_render(ingredients) }}
+			</div>
 		{% endif %}
 	</div>
-
 {% endblock %}

@@ -43,8 +43,8 @@
 							<tr class="table-light"></tr>
 						{% endif %}
 						<th scope="row">{{ recette.id }}</th>
-						<td class="data-placement="top" data-toggle="tooltip" title="voir la recette : {{ recette.name }} " data-trigger="hover"">
-							<a href="{{ path('recette_show',{'id':recette.id})}}">{{ recette.name | capitalize }}</a>
+						<td>
+							{{ recette.name | capitalize }}
 						</td>
 						<td>{{ (recette.price  is same as(null)) ? 'non renseigné' : recette.price |format_currency('EUR') }}</td>
 						<td>{{ recette.difficulty is same as(null) ? 'non renseignée' : recette.difficulty }}</td>
@@ -52,8 +52,9 @@
 						<td>
 							{{ recette.nbPeople }} 
 						</td>
-						<td>
-							<a href="{{ path('recette_delete', { id: recette.id }) }}" class="btn btn-sm btn-outline-warning text-black text-small" data-placement="top" data-toggle="tooltip" title="Supprimer la recette : {{ recette.name }} " data-trigger="hover"><i class="bi bi-trash"></i></a>
+						<td class="data-placement="top" data-toggle="tooltip" title="voir la recette : {{ recette.name }} " data-trigger="hover">
+							<a href="{{ path('recette_show',{'id':recette.id})}}" 
+							class="btn btn-sm btn-outline-warning text-black text-small"><i class="bi bi-folder-symlink"></i></a>
 						</td>
 					</tr>
 				{% endfor %}

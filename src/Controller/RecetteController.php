@@ -171,7 +171,7 @@ class RecetteController extends AbstractController
                     ]);
                 }
                 if ($form->isSubmitted() && $form->isValid()) {
-                    $entityManager->persist($recette);
+                    $entityManager->remove($recette);
                     $entityManager->flush();
                     $this->addFlash('success', 'La recette : ' . $recette->getName() . ' a été supprimé !');
                     return $this->redirectToRoute('app_recette');

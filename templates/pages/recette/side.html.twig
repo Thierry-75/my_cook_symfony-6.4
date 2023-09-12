@@ -1,11 +1,14 @@
 <div class="container-fluid" id="information">
-	<div  class="float-start col-md-8 card border-light my-4 p-2  bg-white shadow">
-		<h5 class="card-header my-4 text-primary">Information</h5>
+	<div  class="float-start col-md-8 card border-black my-4 p-2  bg-secondary shadow">
+		<h5 class="card-header bg-light my-4 text-primary">Information</h5>
 		<div class="card-body">
-			<p class="mt-1 my-4"><a href="{{ path('recette_edit', { id: recette.id }) }}" class="btn btn-sm btn-outline-warning text-black text-small" data-placement="top" data-toggle="tooltip" title="Modifier la recette : {{ recette.name }} " data-trigger="hover">Modifier la recette</a>
+			<p class="mt-1 my-4"><a href="{{ path('recette_edit', { id: recette.id }) }}" class="btn btn-sm btn-outline-warning text-black text-small" data-placement="top" data-toggle="tooltip" title="Modifier la recette : {{ recette.name }} " data-trigger="hover">Modifier la recette&nbsp;&nbsp;&nbsp;</a>
 			</p>
             
-			<p class="mt-4 my-4"><a href="{{ path('photo_edit', { id: recette.id }) }}" class="btn btn-sm btn-outline-warning text-black text-small" data-placement="top" data-toggle="tooltip" title="Modifier la recette : {{ recette.name }} " data-trigger="hover">Changer sa photo</a>
+			<p class="mt-4 my-4"><a href="{{ path('photo_edit', { id: recette.id }) }}" class="btn btn-sm btn-outline-warning text-black text-small" data-placement="top" data-toggle="tooltip" title="Modifier la recette : {{ recette.name }} " data-trigger="hover">Changer sa photo&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</p>
+
+			<p class="mt-4 my-4"><a href="{{ path('recette_delete', { id: recette.id }) }}" class="btn btn-sm btn-outline-warning text-black text-small" data-placement="top" data-toggle="tooltip" title="Supprimer la recette : {{ recette.name }} " data-trigger="hover">Supprimer la recette</a>
 			</p>
 		</div>
 	</div>

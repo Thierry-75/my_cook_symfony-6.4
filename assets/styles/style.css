@@ -40,8 +40,8 @@ html {
 }
 #imageFile{
     box-shadow: 0 0 65px #dfd9cd inset, 0 0 20px #c2baa8 inset, 0 0 5pt #524d42;
+    
 }
-
 
 
 #information{
@@ -49,12 +49,12 @@ html {
     margin-top: 100px;
 }
 
-
-
-
 @media screen and (max-width: 720px) {
 
     h3{
         font-size: 20px;
     }
   }
+
+
+
