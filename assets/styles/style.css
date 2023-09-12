@@ -12,9 +12,13 @@ html {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 50px; /* Set the fixed height of the footer here */
+    height: 35px; /* Set the fixed height of the footer here */
     line-height: 50px; /* Vertically center the text there */
     box-shadow: 0 0 65px #dfd9cd inset, 0 0 20px #dfd9cd inset, 0 0 5pt #dfd9cd;
+  }
+
+  #mark{
+    margin-bottom: 10px;
   }
 
 
@@ -37,10 +41,13 @@ html {
 #imageFile{
     box-shadow: 0 0 65px #dfd9cd inset, 0 0 20px #c2baa8 inset, 0 0 5pt #524d42;
 }
-#note-recette{
-    box-shadow: 0 0 65px #dfd9cd inset, 0 0 20px #c2baa8 inset, 0 0 5pt #524d42;
-}
 
+
+
+#information{
+    margin-left: 10px !important;
+    margin-top: 100px;
+}
 
 
 

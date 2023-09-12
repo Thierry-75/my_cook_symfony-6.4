@@ -1,0 +1,15 @@
+<div class="container-fluid" id="information">
+	<div  class="float-start col-md-8 card border-light my-4 p-2  bg-white shadow">
+		<h5 class="card-header my-4 text-primary">Information</h5>
+		<div class="card-body">
+			<p class="mt-1 my-4"><a href="{{ path('recette_edit', { id: recette.id }) }}" class="btn btn-sm btn-outline-warning text-black text-small" data-placement="top" data-toggle="tooltip" title="Modifier la recette : {{ recette.name }} " data-trigger="hover">Modifier la recette</a>
+			</p>
+            
+			<p class="mt-4 my-4"><a href="{{ path('photo_edit', { id: recette.id }) }}" class="btn btn-sm btn-outline-warning text-black text-small" data-placement="top" data-toggle="tooltip" title="Modifier la recette : {{ recette.name }} " data-trigger="hover">Changer sa photo</a>
+			</p>
+		</div>
+	</div>
+
+
+
+</div>

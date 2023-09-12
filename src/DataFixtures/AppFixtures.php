@@ -30,7 +30,7 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         //user
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 4; $i++) {
             $user = new User();
             $user->setFullName($this->faker->name())
                 ->setPseudo(mt_rand(0, 1) === 1 ? $this->faker->firstName() : null)
@@ -42,7 +42,7 @@ class AppFixtures extends Fixture
         }
         // ingredient
         $ingredients = [];
-        for ($i = 0; $i <= 50; $i++) {
+        for ($i = 0; $i <= 100; $i++) {
             $ingredient = new Ingredient();
             $ingredient->setName($this->faker->sentence(2))
                 ->setPrice($this->faker->randomFloat(2, 10, 200))
@@ -52,12 +52,12 @@ class AppFixtures extends Fixture
         }
         // recette
         $recettes = [];
-        for ($j = 0; $j < 25; $j++) {
+        for ($j = 0; $j < 5; $j++) {
             $recette = new Recette();
             $recette->setName($this->faker->word())
-                ->setTime(mt_rand(0, 1) == 1 ? mt_rand(1, 1440) : null)
-                ->setNbPeople(mt_rand(0, 1) == 1 ? mt_rand(1, 50) : null)
-                ->setDifficulty(mt_rand(0, 1) == 1 ? mt_rand(1, 5) : null)
+                ->setTime(mt_rand(0, 1) == 1 ? mt_rand(1, 240) : 30)
+                ->setNbPeople(mt_rand(0, 1) == 1 ? mt_rand(1, 50) : 2)
+                ->setDifficulty(mt_rand(0, 1) == 1 ? mt_rand(1, 5) : 2)
                 ->setDescription($this->faker->text(300))
                 ->setPrice(mt_rand(0, 1) == 1 ? mt_rand(1, 100) : null)
                 ->setIsFavorite(mt_rand(0, 1) == 1 ? true : false)

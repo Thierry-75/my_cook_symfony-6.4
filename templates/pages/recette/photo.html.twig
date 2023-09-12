@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block title %}Nouvelle photo
+{% endblock %}
+{% block body %}
+
+	<div class="container">
+    	<h3 class="mt-4">Modification de la photo de la recette </h3>
+		{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+		<div class="form-group row">
+			<div class="col-md-6">
+				{{ form_widget(form.photo,{'attr':{'class':'form-file'}})}}
+				<div class="form-error">
+					{{ form_errors(form.photo,{'attr':{'class':'form-control'}})}}
+				</div>
+			</div>
+		</div>
+		{{ form_end(form) }}
+		<a href="{{ path('app_recette')}}" class="btn btn-warning mt-3 float-left">Annuler</a>
+	</div>
+{% endblock %}

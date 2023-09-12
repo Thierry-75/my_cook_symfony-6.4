@@ -6,6 +6,8 @@ use App\Entity\Mark;
 use App\Form\MarkType;
 use App\Entity\Recette;
 use App\Form\RecetteType;
+use App\Form\ModifRecetteType;
+use App\Form\ModifPhotoType;
 use App\Repository\MarkRepository;
 use App\Repository\RecetteRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -100,24 +102,18 @@ class RecetteController extends AbstractController
      */
     #[Route('/recette/modification/{id}', name: 'recette_edit', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_USER')]
-    public function edit(Recette $recette, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): Response
+    public function edit(Recette $recette, Request $request, EntityManagerInterface $entityManager): Response
     {
         $user =  $this->getUser();  // renvoie l'id du connecté 
         $user_recette = $entityManager->getRepository(Recette::class)->find($recette); // renvoie l'id du proprietaire de l'article
         if ($user->id === ($user_recette->getUser()->getId())) {
-            $form = $this->createForm(RecetteType::class, $recette);
+            $form = $this->createForm(ModifRecetteType::class, $recette);
             $form->handleRequest($request);
             if ($request->isMethod("POST")) {
-                $errors = $validator->validate($recette);
-                if (count($errors) > 0) {
-                    return $this->render("pages/recette/edit.html.twig", [
-                        'form' => $form->createView(), 'errors' => $errors
-                    ]);
-                }
                 if ($form->isSubmitted() && $form->isValid()) {
                     $entityManager->persist($recette);
                     $entityManager->flush();
-                    $this->addFlash('success', 'l\'ingrédient : ' . $recette->getName() . ' a été modifié !');
+                    $this->addFlash('success', 'la recette : ' . $recette->getName() . ' a été modifiée !');
                     return $this->redirectToRoute('app_recette');
                 }
             }
@@ -126,6 +122,27 @@ class RecetteController extends AbstractController
         } else {
             return $this->redirectToRoute('app_main');
         }
+    }
+    #[Route('/recette/photo/{id}', name:'photo_edit')]
+    #[IsGranted('ROLE_USER')]
+    public function editPhoto(Recette $recette, Request $request, EntityManagerInterface $entityManager) : Response
+    {
+        $user =  $this->getUser();  // renvoie l'id du connecté 
+        $user_recette = $entityManager->getRepository(Recette::class)->find($recette); // renvoie l'id du proprietaire de l'article
+        if($user->id === ($user_recette->getUser()->getId())){
+            $form = $this->createForm(ModifPhotoType::class,$recette);
+            $form->handleRequest($request);
+            if($request->isMethod("POST")){
+                if($form->isSubmitted() && $form->isValid()){
+                    $entityManager->persist($recette);
+                    $entityManager->flush();
+                    $this->addFlash('success', 'la photo de la recette  : ' . $recette->getName() . ' a été modifiée !');
+                    return $this->redirectToRoute('app_recette');
+                }
+            }
+        }
+
+        return $this->render('pages/recette/photo.html.twig', ['form' => $form->createView()]);
     }
 
     /**
