@@ -6,6 +6,7 @@ use Faker\Factory;
 use App\Entity\Mark;
 use App\Entity\User;
 use Faker\Generator;
+use App\Entity\Contact;
 use App\Entity\Recette;
 use App\Entity\Ingredient;
 use Doctrine\Persistence\ObjectManager;
@@ -79,6 +80,16 @@ class AppFixtures extends Fixture
                         ->setRecette($recette);
                 }
                 $manager->persist($mark);
+            }
+
+            // contacts
+            for($i =0; $i < 5; $i++){
+                $contact = new Contact();
+                $contact->setFullName($this->faker->name())
+                        ->setEmail($this->faker->email())
+                        ->setSubject('Demande :°' . $i+1)
+                        ->setMessage($this->faker->text());
+                $manager->persist($contact);
             }
 
 

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}cook.fr - contact !{% endblock %}
+
+{% block body %}
+<div class="container">
+		<h1 class="mt-4 text-primary">Formulaire de contact</h1>
+		{# templates/task/new.html.twig #}
+		{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+		<div class="form-group">
+			{{ form_label(form.fullName) }}
+			{{ form_widget(form.fullName) }}
+			<div class="form-error">
+				{{ form_errors(form.fullName) }}
+			</div>
+		</div>
+		<div class="form-group">
+			{{ form_label(form.email) }}
+			{{ form_widget(form.email) }}
+			<div class="form-error">
+				{{ form_errors(form.email) }}
+			</div>
+		</div>
+		<div class="form-group">
+			{{ form_label(form.subject) }}
+			{{ form_widget(form.subject) }}
+			<div class="form-error">
+				{{ form_errors(form.subject) }}
+			</div>
+		</div>
+		<div class="form-group">
+			{{ form_label(form.message) }}
+			{{ form_widget(form.message) }}
+			<div class="form-error">
+				{{ form_errors(form.message) }}
+			</div>
+		</div>
+
+		{{ form_end(form) }}
+</div>
+{% endblock %}
