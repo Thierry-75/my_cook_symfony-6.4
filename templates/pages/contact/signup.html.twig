@@ -1,0 +1,11 @@
+
+<html>
+<p>Demande de {{ contact.fullName }}</p>
+
+<p>Email : {{ contact.email }}</p>
+<p>Sujet : {{ contact.subject }}</p>
+<p>Message : </p>
+    <span>
+        {{ contact.message | raw }}
+    </span>
+</html>

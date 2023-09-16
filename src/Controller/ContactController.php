@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
-use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -38,16 +38,20 @@ class ContactController extends AbstractController
                     $em->persist($contact);
                     $em->flush();
                     //email
-                    $email = (new Email())
+                    $email = (new TemplatedEmail())
                     ->from($contact->getEmail())
                     ->to('admin@cook.fr')
                     //->cc('cc@example.com')
                     //->bcc('bcc@example.com')
                     //->replyTo('fabien@example.com')
-                    ->priority(Email::PRIORITY_HIGH)
+                    //->priority(TemplatedEmail::PRIORITY_HIGH)
                     ->subject($contact->getSubject())
-                    ->text($contact->getMessage()." " . $contact->getFullName());
-                   // ->html(."<br />". $contact->getFullName());
+                    ->htmlTemplate('pages/contact/signup.html.twig')
+                   // pass variables (name => value) to the template
+                   ->context([
+                    'expiration_date'=> new \DateTime('+7 days'),
+                    'contact' => $contact,
+                   ]);
         
                 $mailer->send($email);
 
