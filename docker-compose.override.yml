@@ -6,5 +6,5 @@ services:
   mailer:
     image: schickling/mailcatcher
     container_name: mailcatcher-cook
-    ports: [1025, 1080]
+    ports: [25, 80]
 ###< symfony/mailer ###
