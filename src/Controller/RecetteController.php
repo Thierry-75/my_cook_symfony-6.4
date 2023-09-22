@@ -15,6 +15,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -129,7 +130,7 @@ class RecetteController extends AbstractController
     {
         $user =  $this->getUser();  // renvoie l'id du connecté 
         $user_recette = $entityManager->getRepository(Recette::class)->find($recette); // renvoie l'id du proprietaire de l'article
-        if($user->id === ($user_recette->getUser()->getId())){
+     //   if($user->id === ($user_recette->getUser()->getId())){
             $form = $this->createForm(ModifPhotoType::class,$recette);
             $form->handleRequest($request);
             if($request->isMethod("POST")){
@@ -140,7 +141,7 @@ class RecetteController extends AbstractController
                     return $this->redirectToRoute('app_recette');
                 }
             }
-        }
+   //     }
 
         return $this->render('pages/recette/photo.html.twig', ['form' => $form->createView()]);
     }

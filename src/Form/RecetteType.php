@@ -46,7 +46,7 @@ class RecetteType extends AbstractType
             ->add('description',TextareaType::class,['attr'=>['form-control form-control-sm'], 'label'=>'Description','label_attr' => ['class'=>'col-form-label col-form-label-sm mt-1'],
             'constraints'=>[new Assert\NotBlank(['message' => ''])]])
             ->add('price',MoneyType::class,['attr'=>['form-control form-control-sm', 'minlength'=>'0','maxlength'=>'1000'],'label'=>'Prix','label_attr' => ['class'=>'col-form-label col-form-label-sm mt-1'],
-            'constraints'=>[new Assert\Positive(), new Assert\LessThan(1001)]])
+            'constraints'=>[new Assert\Positive()]])
             ->add('isFavorite',CheckboxType::class,[
                 'label'=> ' Recette favorite ?',
                 'required' => true,

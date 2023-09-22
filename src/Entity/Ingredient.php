@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\IngredientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -24,11 +25,10 @@ class Ingredient
     #[ORM\Column]
     #[Assert\NotBlank()]
     #[Assert\Positive()]
-    #[Assert\LessThan(200)]
     private ?float $price = null;
 
     #[ORM\Column]
-     /**
+    /**
      * @var string A "d-m-Y H:i:s" formatted value
      */
     private ?\DateTime $createAt;
@@ -42,6 +42,11 @@ class Ingredient
     public function __construct()
     {
         $this->createAt = new \DateTime();
+    }
+
+    public function setId(int $id)
+    {
+        $this->id = $id;
     }
 
     public function getId(): ?int

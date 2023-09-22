@@ -26,7 +26,7 @@ class UserController extends AbstractController
      * @return Response
      */
     #[Route('/utilisateur/edition/{id}', name: 'edit_user', methods: ['GET', 'POST'])]
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted(['ROLE_USER','ROLE_ADMIN'])]
     public function index(User $user, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator, UserPasswordHasherInterface $hasher): Response
     {
         if (!$this->getUser()) {

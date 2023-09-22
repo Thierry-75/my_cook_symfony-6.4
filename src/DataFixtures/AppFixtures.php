@@ -24,8 +24,6 @@ class AppFixtures extends Fixture
     public function __construct()
     {
         $this->faker = Factory::create('fr_FR');
-        
-        
     }
 
     public function load(ObjectManager $manager): void
@@ -38,7 +36,7 @@ class AppFixtures extends Fixture
                 ->setEmail($this->faker->email())
                 ->setRoles(['ROLE_USER'])
                 ->setPlainPassword('password');
-            $users[] = $user;    
+            $users[] = $user;
             $manager->persist($user);
         }
         // ingredient
@@ -47,7 +45,7 @@ class AppFixtures extends Fixture
             $ingredient = new Ingredient();
             $ingredient->setName($this->faker->sentence(2))
                 ->setPrice($this->faker->randomFloat(2, 10, 200))
-                ->setUser($users[mt_rand(0,count($users)-1)]);
+                ->setUser($users[mt_rand(0, count($users) - 1)]);
             $ingredients[] = $ingredient;
             $manager->persist($ingredient);
         }
@@ -63,7 +61,7 @@ class AppFixtures extends Fixture
                 ->setPrice(mt_rand(0, 1) == 1 ? mt_rand(1, 100) : null)
                 ->setIsFavorite(mt_rand(0, 1) == 1 ? true : false)
                 ->setIsPublic(mt_rand(0, 1) == 1 ? true : false)
-                ->setUser($users[mt_rand(0,count($users)-1)]);
+                ->setUser($users[mt_rand(0, count($users) - 1)]);
             for ($k = 0; $k < mt_rand(5, 15); $k++) {
                 $recette->addIngredient($ingredients[mt_rand(0, count($ingredients) - 1)]);
             }
@@ -71,26 +69,26 @@ class AppFixtures extends Fixture
             $manager->persist($recette);
         }
 
-         // marks
-            foreach($recettes as $recette) {
-                for($i=0;$i < mt_rand(0,4); $i++){
-                    $mark = new Mark();
-                    $mark->setMark(mt_rand(1,5))
-                        ->setUser($users[mt_rand(0, count($users)-1)])
-                        ->setRecette($recette);
-                }
+        // marks
+        foreach ($recettes as $recette) {
+            for ($i = 0; $i < mt_rand(0, 4); $i++) {
+                $mark = new Mark();
+                $mark->setMark(mt_rand(1, 5))
+                    ->setUser($users[mt_rand(0, count($users) - 1)])
+                    ->setRecette($recette);
                 $manager->persist($mark);
             }
+        }
 
-            // contacts
-            for($i =0; $i < 5; $i++){
-                $contact = new Contact();
-                $contact->setFullName($this->faker->name())
-                        ->setEmail($this->faker->email())
-                        ->setSubject('Demande :°' . $i+1)
-                        ->setMessage($this->faker->text());
-                $manager->persist($contact);
-            }
+        // contacts
+        for ($i = 0; $i < 5; $i++) {
+            $contact = new Contact();
+            $contact->setFullName($this->faker->name())
+                ->setEmail($this->faker->email())
+                ->setSubject('Demande :°' . $i + 1)
+                ->setMessage($this->faker->text());
+            $manager->persist($contact);
+        }
 
 
         $manager->flush();

@@ -36,7 +36,6 @@ class IngredientType extends AbstractType
                     ],
             'constraints' => [  new Assert\NotBlank(['message' => '']),
             new Assert\Positive(),
-            new Assert\LessThan(200)
             ]
             ])
             ->add('submit', SubmitType::class, [

@@ -48,7 +48,6 @@ class Recette
 
     #[ORM\Column(nullable: true)]
     #[Assert\Positive()]
-    #[Assert\LessThan(1001)]
     private ?float $price = null;
 
     #[ORM\Column]
@@ -89,6 +88,11 @@ class Recette
         $this->createAt = new \DateTimeImmutable();
         $this->updateAt = new \DateTimeImmutable();
         $this->marks = new ArrayCollection();
+    }
+
+    public function setId(int $id)
+    {
+        $this->id = $id;
     }
 
     #[ORM\PrePersist()]
