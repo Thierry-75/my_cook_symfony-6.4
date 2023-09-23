@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 
@@ -58,6 +59,7 @@ class RecetteCrudController extends AbstractCrudController
             MoneyField::new('price','Prix')->setCurrency('EUR'),
             DateField::new('createAt','Date')
             ->hideOnIndex(),
+            BooleanField::new('isPublic','Public')->hideOnForm(),
             CollectionField::new('ingredients','Ingrédients')->renderExpanded()
             ->hideOnIndex()->hideOnForm()
         ];

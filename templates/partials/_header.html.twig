@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark" id="nav-header">
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="light" id="nav-header">
 	<div class="container">
 		<a class="navbar-brand text-black text-sm" href="{{ path('app_main')}}">Cook.fr&nbsp;<i class="bi bi-cup-hot"></i></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,9 @@
 							<div class="dropdown-menu">
 								<a class="dropdown-item text-sm" href="{{ path('edit_user', {id:app.user.id})}}">Modifier profil</a>
 								<a class="dropdown-item text-sm" href="{{ path('user_edit_password',{id:app.user.id})}}">Modifier mot de passe</a>
+								{% if 'ROLE_ADMIN' in app.user.roles %}
+									<a class="dropdown-item text-sm" href="{{ path('admin_index')}}">Administration</a>
+								{% endif %}
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item text-sm" href="{{ path('app_logout')}}">Déconnexion</a>
 							</div>
