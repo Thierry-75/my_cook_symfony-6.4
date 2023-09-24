@@ -1,0 +1,1 @@
+{"version":1,"defects":{"App\\Tests\\Functional\\BasicTest::testSomething":3,"App\\Tests\\Unit\\RecetteTest::testSomething":4},"times":{"App\\Tests\\Unit\\BasicTest::testSomething":0.004,"App\\Tests\\Functional\\BasicTest::testSomething":4.79,"App\\Tests\\Unit\\RecetteTest::testSomething":0.359}}
