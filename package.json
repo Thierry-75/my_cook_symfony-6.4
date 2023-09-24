@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "bootstrap-icons": "^1.10.5",
-        "ckeditor4": "^4.13.0"
+        "ckeditor4": "^4.13.0",
+        "make": "^0.0.0"
     }
 }
