@@ -37,12 +37,13 @@ class ContactType extends AbstractType
             'constraints'=>[new Assert\Length(['min'=>2,'max'=>100]), new Assert\NotBlank(['message' => ''])]])
             ->add('message',TextareaType::class,['attr'=>['form-control form-control-sm'], 'label'=>'Message','label_attr' => ['class'=>'col-form-label col-form-label-sm mt-1'],
             'constraints'=>[new Assert\NotBlank(['message' => ''])]])
-            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-warning text-black mt-4 float-end'], 'label' => 'Envoyer'])
             ->add('captcha', Recaptcha3Type::class, [
                 'constraints' => new Recaptcha3(),
                 'action_name' => 'contact',
                 'locale' => 'fr',
-            ]);
+            ])
+            ->add('submit', SubmitType::class, ['attr' => ['class' => 'btn btn-warning text-black mt-4 float-end'], 'label' => 'Envoyer'])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
