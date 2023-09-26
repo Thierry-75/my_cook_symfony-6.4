@@ -13,8 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class IngredientController extends AbstractController
 {
@@ -30,6 +30,11 @@ class IngredientController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function index(IngredientRepository $repository, PaginatorInterface $paginator, Request $request): Response
     {
+        $cache = new FilesystemAdapter();
+        $data = $cache->get('ingredients', function(ItemInterface $item)use($repository){
+            $item->expiresAfter(60);
+            return $repository->findBy(['user' => $this->getUser()]);
+        });
         $ingredients = $paginator->paginate(
             $repository->findBy(['user' => $this->getUser()]),
             $request->query->getInt('page', 1),
