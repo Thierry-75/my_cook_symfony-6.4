@@ -2,7 +2,7 @@
 	<h1 class="mt-1">{{ recette.name | capitalize }}</h1>
 		{% if recette.photo is not empty %}
 	<div class="mt-2">
-		<img class="img-fluid" id="imageFile" src="{{ vich_uploader_asset(recette.photo) | imagine_filter('recette') }}" alt="{{ recette.name }}"/>
+		<img class="img-fluid" id="imageFile" src="{{ vich_uploader_asset(recette.photo)}}" alt="{{ recette.name }}"/>
 	</div>
 		{% endif %}
 	<p class="mt-1 text-black">La note de cette recette est de :
@@ -10,8 +10,8 @@
 	</p>
 	<span class=" badge bg-dark">Créée le :{{ recette.createAt | date('d-m-Y') }}</span>
 	{% if recette.time is defined %}
-		<p>Temps (en minutes) :
-			{{ recette.time }}
+		<p>Temps :
+			{{ recette.time | min_to_hour }}
 		</p>
 	{% endif %}
 	{% if recette.nbPeople is defined %}

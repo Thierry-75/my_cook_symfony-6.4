@@ -21,7 +21,21 @@ html {
     margin-bottom: 10px;
   }
 
+.card-img-top{
+  height: 250px;
+  width: 350px;
+  min-height: auto;
+  max-height: auto;
 
+}
+
+#imageFile{
+  height: 300px;
+  width: 350px;
+  min-height: auto;
+  max-height: auto;
+
+}
 
 .card-body{
     margin-top: 20px;

@@ -31,5 +31,4 @@ liip_imagine:
                 format:
                     width: 400
                     height: 300
-                mode:
-                    [lazy]
+                

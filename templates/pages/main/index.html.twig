@@ -31,7 +31,7 @@
 				<div class="col-sm-4 col-md-4 col-xl-4 d-flex">
 					<div class="card" style="width: 22rem;">
 						{% if recette.photo is not empty %}
-						<img src="{{ vich_uploader_asset(recette.photo ) | imagine_filter('card') }}" alt="{{ recette.name }}" class="card-img-top"/>
+						<img src="{{ vich_uploader_asset(recette.photo ) }}" alt="{{ recette.name }}" class="card-img-top"/>
 						{% endif %}
 						<div class="card-body">
 							<h5 class="card-title text-danger">{{recette.name}}</h5>
