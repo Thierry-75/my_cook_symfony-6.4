@@ -1,5 +1,5 @@
 # my_cook symfony 6.3
--docker ( mariaDb phpmyadmin mailcatcher )
+-docker ( mariaDb phpmyadmin mailcatcher )<br/>
 -webpack encore
 -datafixtures via composer
 -EntityListener prePersist class UserListener via UserPasswordHasherInterface
